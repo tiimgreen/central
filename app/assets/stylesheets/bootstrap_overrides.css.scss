@@ -1,0 +1,24 @@
+.btn {
+  padding: 15px 20px;
+  border-radius: 0;
+}
+
+  .btn-primary {
+    background-color: #00ebbe;
+  }
+
+  .btn-default {
+    color: #fff;
+    background-color: #a537fd;
+    border: 0;
+
+    &:hover {
+      color: #fff;
+      background-color: #a537fd;
+    }
+  }
+
+.btn-check-in,
+.btn-check-out {
+  margin-bottom: 20px;
+}
