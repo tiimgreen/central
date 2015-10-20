@@ -1,20 +1,44 @@
+$brand_default: #a537fd;
+$brand_primary: #00ebbe;
+
 .btn {
-  padding: 15px 20px;
-  border-radius: 0;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
 
   .btn-primary {
-    background-color: #00ebbe;
+    color: #fff;
+    background-color: $brand_primary;
+    border: 0;
+    border-bottom: 3px solid darken($brand_primary, 10%);
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      background-color: darken($brand_primary, 5%);
+      border-bottom-color: darken($brand_primary, 15%);
+    }
+
+    &:active {
+      border: 0;
+    }
   }
 
   .btn-default {
     color: #fff;
-    background-color: #a537fd;
+    background-color: $brand_default;
     border: 0;
+    border-bottom: 3px solid darken($brand_default, 10%);
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: #fff;
-      background-color: #a537fd;
+      background-color: darken($brand_default, 5%);
+      border-bottom-color: darken($brand_default, 15%);
+    }
+
+    &:active {
+      border: 0;
     }
   }
 
