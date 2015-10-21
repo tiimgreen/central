@@ -1,3 +1,37 @@
 // Place all the styles related to the Times controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-card {
+  border: 1px solid #ccc;
+  min-height: 200px;
+  max-width: 300px;
+  text-align: center;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+  .user-card__name {
+  }
+
+  .user-card__photo {
+    border-radius: 1000px;
+    width: 80%;
+  }
+
+.table-check-in-times {
+
+}
+
+  .table-check-in-times__tr {
+  }
+
+  .table-check-in-times__td {
+    height: 35px;
+    width: 20%;
+  }
+
+.label-time-logged-today {
+  display: block;
+  margin-top: 10px;
+}
