@@ -25,10 +25,11 @@ class Employee < ActiveRecord::Base
   def time_checked_in(date)
     total_hours = total_minutes = 0
 
+    # Gets all CheckIns from given date, including ones where user is currently
+    # checked in
     check_ins_on_date = check_ins.where(
-      'check_in_time >= ? AND ' +
-      'check_in_time <= ? AND ' +
-      'check_out_time <= ?',
+      '(check_in_time >= ? AND check_in_time <= ?) AND ' +
+      '(check_out_time <= ? OR check_out_time is NULL)',
       date.to_date.beginning_of_day,
       date.to_date.end_of_day,
       date.to_date.end_of_day
@@ -38,8 +39,9 @@ class Employee < ActiveRecord::Base
 
     return if total_minutes == 0 # do not return string if user was not checked in
 
-    if total_hours >= 60
-      total_hours = total_minutes % 60
+    if total_minutes >= 60
+      # Will return how many times total_minutes goes into 60, without remainder
+      total_hours = total_minutes / 60
       total_minutes -= (total_hours * 60)
     end
 
