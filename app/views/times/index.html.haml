@@ -9,24 +9,4 @@
   .col-md-9
     = render 'check_in_form'
 
-    %table.table.table-bordered.table-check-in-times
-      %tr.table-check-in-times__tr
-        - @week.each do |day|
-          %td.center
-            %strong= day.strftime('%A')
-            - if (time_checked_in = current_employee.time_checked_in(day))
-              %span.label.label-default.label-time-logged-today
-                = time_checked_in
-      %tr.table-check-in-times__tr
-        %td.table-check-in-times__td 9:13
-        %td.table-check-in-times__td
-        %td.table-check-in-times__td
-        %td.table-check-in-times__td
-        %td.table-check-in-times__td
-      %tr.table-check-in-times__tr
-        %td.table-check-in-times__td 18:48
-        %td.table-check-in-times__td
-        %td.table-check-in-times__td
-        %td.table-check-in-times__td
-        %td.table-check-in-times__td
-
+    = render 'time_table'

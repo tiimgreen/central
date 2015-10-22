@@ -3,6 +3,7 @@ class CheckIn < ActiveRecord::Base
 
   validates :check_in_time, presence: true
 
+  # Returns the time checked in for self in minutes
   def time_checked_in
     time_out = check_out_time.nil? ? Time.now : check_out_time
     seconds_diff = (time_out - check_in_time).to_i.abs

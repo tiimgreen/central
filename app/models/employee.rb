@@ -25,17 +25,7 @@ class Employee < ActiveRecord::Base
   def time_checked_in(date)
     total_hours = total_minutes = 0
 
-    # Gets all CheckIns from given date, including ones where user is currently
-    # checked in
-    check_ins_on_date = check_ins.where(
-      '(check_in_time >= ? AND check_in_time <= ?) AND ' +
-      '(check_out_time <= ? OR check_out_time is NULL)',
-      date.to_date.beginning_of_day,
-      date.to_date.end_of_day,
-      date.to_date.end_of_day
-    )
-
-    check_ins_on_date.each { |check_in| total_minutes += check_in.time_checked_in }
+    all_check_ins_on_date(date).each { |check_in| total_minutes += check_in.time_checked_in }
 
     return if total_minutes == 0 # do not return string if user was not checked in
 
@@ -46,5 +36,36 @@ class Employee < ActiveRecord::Base
     end
 
     "#{total_hours}h #{total_minutes}m"
+  end
+
+  # Returns the largest number of CheckIns on any day of the current week
+  def max_check_ins_this_week
+    week = (Date.today.at_beginning_of_week..(Date.today.at_beginning_of_week + 4)).to_a
+
+    max_check_ins = 0
+
+    week.each do |day|
+      if all_check_ins_on_date(day).count > max_check_ins
+        max_check_ins += all_check_ins_on_date(day).count
+      end
+    end
+
+    max_check_ins
+  end
+
+  def all_check_ins_today
+    all_check_ins_on_date(Date.today)
+  end
+
+  # Gets all CheckIns from given date, including ones where user is currently
+  # checked in
+  def all_check_ins_on_date(date)
+    check_ins.where(
+      '(check_in_time >= ? AND check_in_time <= ?) AND ' +
+      '(check_out_time <= ? OR check_out_time is NULL)',
+      date.to_date.beginning_of_day,
+      date.to_date.end_of_day,
+      date.to_date.end_of_day
+    ).to_a
   end
 end

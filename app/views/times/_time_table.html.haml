@@ -1,0 +1,25 @@
+%table.table.table-bordered.table-check-in-times
+  %tr.table-check-in-times__tr
+    - @week.each do |day|
+      %td.center
+        %strong= day.strftime('%A')
+        - if (time_checked_in = current_employee.time_checked_in(day))
+          %span.label.label-default.label-time-logged-today
+            = time_checked_in
+  - @number_of_check_in_rows.times do |n|
+    %tr.table-check-in-times__tr
+      - 5.times do |i|
+        - time = @check_in_out_times[i][n]
+
+        - if n % 2 == 0
+          %td.table-check-in-times__td
+            - if time
+              %span.label.label-primary.label-time-table
+                %span.glyphicon.glyphicon-log-in
+                = time
+        - else
+          %td.table-check-in-times__td
+            - if time
+              %span.label.label-default.label-time-table
+                %span.glyphicon.glyphicon-log-out
+                = time
