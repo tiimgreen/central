@@ -10,7 +10,9 @@
         = image_tag('logo.png', class: 'header__logo')
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
-        %li= link_to 'Employees', employees_path if current_employee.line_manager
+        %li= link_to 'Holiday Requests', '#' if current_employee.line_manager
+        %li= link_to 'Employees', employees_path, class: 'header__right-space' if current_employee.line_manager
+
         %li= link_to 'Check In', root_path
         %li= link_to 'Holidays', holidays_path
         - if employee_signed_in?
