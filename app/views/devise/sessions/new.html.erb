@@ -1,21 +1,21 @@
-<div class="panel panel-default panel-log-in">
-  <div class="panel-heading">Log In</div>
+<div class="panel panel-default panel-log-in log-in-panel">
+  <div class="panel-heading log-in-panel__header">
+    <%= image_tag('logo.png', class: 'log-in-panel__logo') %>
+  </div>
   <div class="panel-body">
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="form-group">
+      <div class="form-group center">
         <%= f.label :email, class: 'control-label' %>
         <%= f.email_field :email, class: 'form-control', autofocus: true %>
       </div>
 
-      <div class="form-group">
+      <div class="form-group center">
         <%= f.label :password, class: 'control-label' %>
         <%= f.password_field :password, class: 'form-control', autocomplete: :off %>
       </div>
 
-      <div class="form-group">
-        <%= f.submit 'Sign In', class: 'btn btn-default pull-right' %>
-
+      <div class="form-group center">
         <% if devise_mapping.rememberable? -%>
           <div class="checkbox">
             <label>
@@ -25,11 +25,8 @@
         <% end -%>
       </div>
 
-      <div class="form-group">
-      </div>
-
-      <div class="form-group">
-        <%= render "devise/shared/links" %>
+      <div class="form-group center">
+        <%= f.submit 'Sign In', class: 'btn btn-default' %>
       </div>
     <% end %>
   </div>

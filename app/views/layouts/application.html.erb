@@ -7,12 +7,12 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= controller.controller_name %> <%= controller.action_name %>">
 
-<%= render 'layouts/header' %>
+<%= render 'layouts/header' unless on_page('sessions', 'new') %>
 
 <div class="container">
-  <%= render 'layouts/flash_notice' %>
+  <%= render 'layouts/flash_notice' unless on_page('sessions', 'new') %>
   <%= yield %>
 </div>
 
