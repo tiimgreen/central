@@ -1,0 +1,8 @@
+%h1 Employees
+
+.row.user-card--small__container
+  - @employees.each do |employee|
+    = link_to employee, class: '' do
+      .col-md-3.user-card--small
+        = image_tag('profile-photo.jpg', class: 'user-card--small__photo')
+        %h4.user-card--small__name= employee.full_name

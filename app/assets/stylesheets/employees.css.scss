@@ -1,0 +1,24 @@
+// Place all the styles related to the Employees controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-card--small__container {
+  margin-top: 50px;
+}
+  .user-card--small {
+    text-align: center;
+    border-right: 1px solid #eee;
+
+    &:nth-child(4n) {
+      border-right: 0;
+    }
+  }
+    .user-card--small__name {
+      text-align: center;
+    }
+
+    .user-card--small__photo {
+      border-radius: 1000px;
+      margin: 0 auto;
+      width: 80%;
+    }
