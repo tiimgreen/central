@@ -7,22 +7,16 @@
 
       %h3.user-card__name= current_employee.full_name
   .col-md-9
-    = link_to 'Check In', '#', class: 'btn btn-default btn-check-in'
-    = link_to 'Check Out', '#', class: 'btn btn-primary btn-check-out'
+    = render 'check_in_form'
 
     %table.table.table-bordered.table-check-in-times
       %tr.table-check-in-times__tr
-        %td.center
-          %strong Monday
-          %span.label.label-default.label-time-logged-today 8h 3m
-        %td.center
-          %strong Tuesday
-        %td.center
-          %strong Wednesday
-        %td.center
-          %strong Thursday
-        %td.center
-          %strong Friday
+        - @week.each do |day|
+          %td.center
+            %strong= day.strftime('%A')
+            - if (time_checked_in = current_employee.time_checked_in(day))
+              %span.label.label-default.label-time-logged-today
+                = time_checked_in
       %tr.table-check-in-times__tr
         %td.table-check-in-times__td 9:13
         %td.table-check-in-times__td

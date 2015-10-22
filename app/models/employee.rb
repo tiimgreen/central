@@ -4,7 +4,45 @@ class Employee < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :check_ins
+
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  # Is self checked in currently
+  #
+  # @returns (Boolean)
+  def checked_in?
+    check_ins.last.check_out_time.nil?
+  end
+
+  # Returns the time self was checked in on a given date in the format:
+  #  6h 36m
+  #
+  # @param (Date) - the date the user was checked in
+  # @returns (String) - formatted time checked in
+  def time_checked_in(date)
+    total_hours = total_minutes = 0
+
+    check_ins_on_date = check_ins.where(
+      'check_in_time >= ? AND ' +
+      'check_in_time <= ? AND ' +
+      'check_out_time <= ?',
+      date.to_date.beginning_of_day,
+      date.to_date.end_of_day,
+      date.to_date.end_of_day
+    )
+
+    check_ins_on_date.each { |check_in| total_minutes += check_in.time_checked_in }
+
+    return if total_minutes == 0 # do not return string if user was not checked in
+
+    if total_hours >= 60
+      total_hours = total_minutes % 60
+      total_minutes -= (total_hours * 60)
+    end
+
+    "#{total_hours}h #{total_minutes}m"
   end
 end

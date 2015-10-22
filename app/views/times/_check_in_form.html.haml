@@ -1,0 +1,6 @@
+- if current_employee.checked_in?
+  = form_for(CheckIn.new, url: check_out_path) do |f|
+    = f.submit 'Check Out', class: 'btn btn-default btn-check-out'
+- else
+  = form_for(CheckIn.new, url: check_in_path) do |f|
+    = f.submit 'Check In', class: 'btn btn-primary btn-check-out'

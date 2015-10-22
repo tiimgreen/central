@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021091723) do
+ActiveRecord::Schema.define(version: 20151022104453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "check_ins", force: true do |t|
+    t.integer  "employee_id"
+    t.datetime "check_in_time"
+    t.datetime "check_out_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "employees", force: true do |t|
     t.string   "email",                  default: "", null: false
