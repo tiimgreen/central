@@ -12,3 +12,12 @@
       %ul.nav.navbar-nav.navbar-right
         %li= link_to 'Check In', root_path
         %li= link_to 'Holidays', '#'
+        - if employee_signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              = current_employee.full_name
+              %span.caret
+            %ul.dropdown-menu
+              %li= link_to 'Edit Profile', edit_employee_registration_path
+              %li.divider{:role => "separator"}
+              %li= link_to 'Log Out', destroy_employee_session_path, method: :delete
