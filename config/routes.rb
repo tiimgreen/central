@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   resources :holidays, only: :index
   resources :employees, only: %i(index show edit)
+  resources :times, only: %i(edit)
 end

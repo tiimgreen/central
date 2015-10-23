@@ -22,7 +22,7 @@ class Employee < ActiveRecord::Base
   #
   # @param (Date) - the date the user was checked in
   # @returns (String) - formatted time checked in
-  def time_checked_in(date)
+  def time_checked_in_on_date(date)
     total_hours = total_minutes = 0
 
     all_check_ins_on_date(date).each { |check_in| total_minutes += check_in.time_checked_in }
@@ -46,7 +46,7 @@ class Employee < ActiveRecord::Base
 
     week.each do |day|
       if all_check_ins_on_date(day).count > max_check_ins
-        max_check_ins += all_check_ins_on_date(day).count
+        max_check_ins = all_check_ins_on_date(day).count
       end
     end
 
@@ -62,10 +62,12 @@ class Employee < ActiveRecord::Base
   def all_check_ins_on_date(date)
     check_ins.where(
       '(check_in_time >= ? AND check_in_time <= ?) AND ' +
-      '(check_out_time <= ? OR check_out_time is NULL)',
+      '((check_out_time <= ? AND check_out_time >= ? AND check_out_time is NOT NULL) OR ' +
+      '(check_out_time is NULL)) ',
       date.to_date.beginning_of_day,
       date.to_date.end_of_day,
-      date.to_date.end_of_day
+      date.to_date.end_of_day,
+      date.to_date.beginning_of_day
     ).to_a
   end
 end

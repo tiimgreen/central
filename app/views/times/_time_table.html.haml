@@ -3,7 +3,7 @@
     - @week.each do |day|
       %td.center
         %strong= day.strftime('%A')
-        - if (time_checked_in = current_employee.time_checked_in(day))
+        - if (time_checked_in = current_employee.time_checked_in_on_date(day))
           %span.label.label-default.label-time-logged-today
             = time_checked_in
   - @number_of_check_in_rows.times do |n|
@@ -11,15 +11,13 @@
       - 5.times do |i|
         - time = @check_in_out_times[i][n]
 
-        - if n % 2 == 0
-          %td.table-check-in-times__td
-            - if time
-              %span.label.label-primary.label-time-table
-                %span.glyphicon.glyphicon-log-in
-                = time
-        - else
-          %td.table-check-in-times__td
-            - if time
-              %span.label.label-default.label-time-table
+        %td.table-check-in-times__td
+          - if time
+            - if time.check_out_time
+              %span.label.label-default.label-time-table.pull-right
                 %span.glyphicon.glyphicon-log-out
-                = time
+                = link_to time.check_out_time.strftime("%k:%M"), edit_time_path(time), class: 'table-check-in-times__link', onclick: 'return prompt("What time do you want to change it to? (HH:MM) - 24h");'
+
+            %span.label.label-primary.label-time-table
+              %span.glyphicon.glyphicon-log-in
+              = link_to time.check_in_time.strftime("%k:%M"), edit_time_path(time), class: 'table-check-in-times__link', onclick: 'return prompt("What time do you want to change it to? (HH:MM) - 24h");'
