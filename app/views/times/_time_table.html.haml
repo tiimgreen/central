@@ -1,12 +1,17 @@
 %table.table.table-bordered.table-check-in-times
-  %tr.table-check-in-times__tr
-    - @week.each do |day|
-      %td.center
-        %strong= day.strftime('%A')
-        - if current_employee.all_check_ins_on_date(day).any?
-          %span.label.label-default.label-time-logged-today
-            = current_employee.time_checked_in_on_date(day)
-  - @number_of_check_in_rows.times do |n|
+  %tbody
     %tr.table-check-in-times__tr
-      - 5.times do |i|
-        = render 'times/day', time: @check_in_out_times[i][n]
+      - @week.each do |day|
+        %td.center
+          %strong= day.strftime('%A')
+          - if current_employee.all_check_ins_on_date(day).any?
+            %span.label.label-default.label-time-logged-today
+              = current_employee.time_checked_in_on_date(day)
+    - @number_of_check_in_rows.times do |n|
+      %tr.table-check-in-times__tr
+        - 5.times do |i|
+          = render 'times/day', time: @check_in_out_times[i][n]
+  %tfooter
+    %tr
+      %td.center{ colspan: 5 }
+        Hours worked this week:
