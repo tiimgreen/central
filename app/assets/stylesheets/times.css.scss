@@ -12,11 +12,17 @@
 }
 
   .user-card__name {
+
   }
 
   .user-card__photo {
     border-radius: 1000px;
     width: 80%;
+  }
+
+  .user-card__job-title {
+    margin-top: 5px;
+    display: block;
   }
 
 .table-check-in-times {
@@ -32,10 +38,13 @@
   }
 
   .table-check-in-times__link {
-    color: #fff;
+    color: #000;
+    background: none;
+    border: 0;
+    margin-left: 10px;
+    font-weight: bold;
 
     &:hover {
-      color: #fff;
       text-decoration: underline;
     }
   }
@@ -46,9 +55,39 @@
 }
 
 .label-time-table {
-  font-size: 1em;
-
   span {
-    margin-right: 3px;
+    margin-bottom: 12px;
+  }
+
+  &:last-child {
+    span {
+      margin-bottom: 0;
+    }
   }
 }
+
+.popover-close {
+  margin-left: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.affix-time__form {
+
+}
+
+  .affix-time__form--button {
+    padding: 5px 10px;
+    margin: 0 0 5px 3px;
+  }
+
+  .affix-time__form--text-field {
+    padding: 5px 10px;
+    margin: 0 0 5px 3px;
+
+    &:focus {
+      outline: 0;
+    }
+  }

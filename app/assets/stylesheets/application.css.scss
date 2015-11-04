@@ -17,7 +17,8 @@
 body {
   margin-top: 60px;
 
-  &.sessions.new {
+  &.sessions.new,
+  &.registrations.new {
     background-image: image-url('log_in_bg.jpg');
   }
 }
