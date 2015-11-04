@@ -1,7 +1,0 @@
-- path = is_check_in ? edit_time_check_in_path(time) : edit_time_check_out_path(time)
-- attribute = is_check_in ? 'check_in_time' : 'check_out_time'
-
-%div{ class: "hidden-time-form #{time.id}-check-out", style: "display: none" }
-  = form_for time, url: path, html: { class: 'affix-time__form' } do |f|
-    = f.text_field attribute.to_sym, value: time[attribute].strftime("%k:%M")
-    = f.submit 'Fix', class: 'btn btn-default pull-right'
