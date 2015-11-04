@@ -17,6 +17,8 @@ class CheckInsController < ApplicationController
   def check_out
     check_in = current_employee.check_ins.order(created_at: :desc).first
 
+    # If the user is checking out a day after they checked in, they must have
+    # forgotten to check out so it changes check-out time to the end of the day.
     if Time.at(Time.now).to_date === Time.at(check_in.check_in_time).to_date
       check_out_time = Time.now
     else
