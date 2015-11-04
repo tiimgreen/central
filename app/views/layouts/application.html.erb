@@ -9,15 +9,14 @@
 </head>
 <body class="<%= controller.controller_name %> <%= controller.action_name %>">
 
-<%= render 'layouts/header' unless on_page('sessions', 'new') %>
+<%= render 'layouts/header' unless on_page('sessions', 'new') || on_page('registrations', 'new') %>
 
 <div class="container">
-  <%= render 'layouts/flash_notice' unless on_page('sessions', 'new') %>
+  <%= render 'layouts/flash_notice' unless on_page('sessions', 'new') || on_page('registrations', 'new') %>
   <%= yield %>
 </div>
 
 <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <%= javascript_include_tag 'application' %>
 
 </body>
