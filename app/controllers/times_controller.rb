@@ -25,8 +25,14 @@ class TimesController < ApplicationController
   end
 
   def edit_check_in
-    check_in_date = Date.new(@check_in.check_in_time.year, @check_in.check_in_time.month, @check_in.check_in_time.day)
-    new_time = check_in_date.to_datetime + Time.parse(user_entered_time).seconds_since_midnight.seconds
+    check_in_date = Date.new(
+      @check_in.check_in_time.year,
+      @check_in.check_in_time.month,
+      @check_in.check_in_time.day
+    )
+
+    additional_seconds = Time.parse(params[:check_in][:check_in_time]).seconds_since_midnight.seconds
+    new_time = check_in_date.to_datetime + additional_seconds
 
     if @check_in.update_attributes(check_in_time: new_time)
       flash[:success] = 'Time updated!'
@@ -38,8 +44,14 @@ class TimesController < ApplicationController
   end
 
   def edit_check_out
-    check_out_date = Date.new(@check_in.check_out_time.year, @check_in.check_out_time.month, @check_in.check_out_time.day)
-    new_time = check_out_date.to_datetime + Time.parse(user_entered_time).seconds_since_midnight.seconds
+    check_out_date = Date.new(
+      @check_in.check_out_time.year,
+      @check_in.check_out_time.month,
+      @check_in.check_out_time.day
+    )
+
+    additional_seconds = Time.parse(params[:check_in][:check_out_time]).seconds_since_midnight.seconds
+    new_time = check_out_date.to_datetime + additional_seconds
 
     if @check_in.update_attributes(check_out_time: new_time)
       flash[:success] = 'Time updated!'
@@ -54,7 +66,11 @@ class TimesController < ApplicationController
 
     # Ensures the user enters a valid 24hour format, time
     def validate_time
-      user_entered_time = params[:check_in][:check_out_time]
+      if params[:check_in].has_key?(:check_in_time)
+        user_entered_time = params[:check_in][:check_in_time]
+      else
+        user_entered_time = params[:check_in][:check_out_time]
+      end
 
       unless user_entered_time =~ /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/
         flash[:danger] = 'That is not a valid time!'
