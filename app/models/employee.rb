@@ -14,7 +14,7 @@ class Employee < ActiveRecord::Base
   #
   # @returns (Boolean)
   def checked_in?
-    check_ins.last.check_out_time.nil?
+    check_ins.any? && check_ins.last.check_out_time.nil?
   end
 
   # Returns the time self was checked in on a given date in the format:
@@ -26,8 +26,6 @@ class Employee < ActiveRecord::Base
     total_hours = total_minutes = 0
 
     all_check_ins_on_date(date).each { |check_in| total_minutes += check_in.time_checked_in }
-
-    return if total_minutes == 0 # do not return string if user was not checked in
 
     if total_minutes >= 60
       # Will return how many times total_minutes goes into 60, without remainder
@@ -68,6 +66,6 @@ class Employee < ActiveRecord::Base
       date.to_date.end_of_day,
       date.to_date.end_of_day,
       date.to_date.beginning_of_day
-    ).to_a
+    ).order(:created_at).to_a
   end
 end
