@@ -1,6 +1,6 @@
 class CheckInsController < ApplicationController
   before_action :authenticate_employee!
-  before_action :employee_checked_in?
+  before_action :employee_checked_in?, only: :check_out
 
   def check_in
     check_in = current_employee.check_ins.build(check_in_time: Time.now)
@@ -15,7 +15,7 @@ class CheckInsController < ApplicationController
   end
 
   def check_out
-    check_in = current_employee.check_ins.order(created_at: :desc).first
+    check_in = current_employee.check_ins.order(:check_in_time).last
 
     # If the user is checking out a day after they checked in, they must have
     # forgotten to check out so it changes check-out time to the end of the day.
@@ -37,6 +37,9 @@ class CheckInsController < ApplicationController
   private
 
   def employee_checked_in?
-    current_employee.checked_in?
+    unless current_employee.checked_in?
+      flash[:danger] = "You can't check out if you're not checked in"
+      redirect_to root_path
+    end
   end
 end

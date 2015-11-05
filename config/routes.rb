@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   # Sets the 'index' action in the Times controller as the home page.
   root 'times#index'
 
+  get 'week/:start_of_week', to: 'times#week', as: :week
+
   post 'check-in', to: 'check_ins#check_in', as: :check_in
   post 'check-out', to: 'check_ins#check_out', as: :check_out
 
