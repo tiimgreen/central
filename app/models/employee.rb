@@ -4,6 +4,7 @@ class Employee < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # Rails relation that links the CheckIn model to Employees
   has_many :check_ins
 
   def full_name
@@ -14,7 +15,7 @@ class Employee < ActiveRecord::Base
   #
   # @returns (Boolean)
   def checked_in?
-    check_ins.any? && check_ins.last.check_out_time.nil?
+    check_ins.any? && check_ins.order(:check_in_time).last.check_out_time.nil?
   end
 
   # Returns the time self was checked in on a given date in the format:
@@ -51,6 +52,7 @@ class Employee < ActiveRecord::Base
     max_check_ins
   end
 
+  # Gets all CheckIns today
   def all_check_ins_today
     all_check_ins_on_date(Date.today)
   end
@@ -66,6 +68,6 @@ class Employee < ActiveRecord::Base
       date.to_date.end_of_day,
       date.to_date.end_of_day,
       date.to_date.beginning_of_day
-    ).order(:created_at).to_a
+    ).order(:check_in_time).to_a
   end
 end

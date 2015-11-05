@@ -1,24 +1,22 @@
 class TimesController < ApplicationController
   before_action :authenticate_employee!
-  before_action :validate_time, only: %i( edit_check_out edit_check_in )
+  before_action :validate_check_in_time, only: :edit_check_in
+  before_action :validate_check_out_time, only: :edit_check_out
   before_action :set_check_in, only: %i( edit_check_out edit_check_in )
 
   def index
+    # Gets a range of dates from Monday to Friday in current week
     @week = Date.today.at_beginning_of_week..(Date.today.at_beginning_of_week + 4)
-    @number_of_check_in_rows = current_employee.max_check_ins_this_week
 
-
-    times = []
+    @check_in_out_times = []
 
     @week.each_with_index do |day, i|
-      times[i] = []
+      @check_in_out_times[i] = []
 
       current_employee.all_check_ins_on_date(day).each do |check_in|
-        times[i].push(check_in)
+        @check_in_out_times[i].push(check_in)
       end
     end
-
-    @check_in_out_times = times
   end
 
   def check_in_out_times
@@ -65,13 +63,15 @@ class TimesController < ApplicationController
   private
 
     # Ensures the user enters a valid 24hour format, time
-    def validate_time
-      if params[:check_in].has_key?(:check_in_time)
-        user_entered_time = params[:check_in][:check_in_time]
-      else
-        user_entered_time = params[:check_in][:check_out_time]
-      end
+    def validate_check_in_time
+      validate_time(params[:check_in][:check_in_time])
+    end
 
+    def validate_check_out_time
+      validate_time(params[:check_in][:check_out_time])
+    end
+
+    def validate_time(user_entered_time)
       unless user_entered_time =~ /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/
         flash[:danger] = 'That is not a valid time!'
         redirect_to root_path
