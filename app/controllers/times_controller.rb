@@ -33,7 +33,7 @@ class TimesController < ApplicationController
       flash[:danger] = 'Error updating time'
     end
 
-    redirect_to root_path
+    redirect_to request.referrer
   end
 
   def edit_check_out
@@ -52,7 +52,7 @@ class TimesController < ApplicationController
       flash[:danger] = 'Error updating time'
     end
 
-    redirect_to root_path
+    redirect_to request.referrer
   end
 
   def mark_sick_day
@@ -66,7 +66,7 @@ class TimesController < ApplicationController
       flash[:danger] = 'Error marking as sick day.'
     end
 
-    redirect_to root_path
+    redirect_to request.referrer
   end
 
   private
@@ -83,7 +83,7 @@ class TimesController < ApplicationController
     def validate_time(user_entered_time)
       unless user_entered_time =~ /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/
         flash[:danger] = 'That is not a valid time!'
-        redirect_to root_path
+        redirect_to request.referrer
       end
     end
 

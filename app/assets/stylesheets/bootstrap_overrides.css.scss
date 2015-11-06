@@ -42,9 +42,28 @@ $brand_primary: #00ebbe;
     }
   }
 
+  .btn-disabled {
+    color: #fff;
+    background-color: #d1d1d1;
+    border: 0;
+    border-bottom: 3px solid darken(#d1d1d1, 10%);
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      background-color: darken(#d1d1d1, 5%);
+      border-bottom-color: darken(#d1d1d1, 15%);
+    }
+
+    &:active {
+      border: 0;
+    }
+  }
+
 .btn-check-in,
 .btn-check-out {
   width: 100%;
+  margin-bottom: 15px;
 }
 
 .label-default {

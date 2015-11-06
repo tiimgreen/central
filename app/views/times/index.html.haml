@@ -14,7 +14,22 @@
     = render 'check_in_form'
 
     %h5.center.week-starting
-      Week starting:
-      = @start_of_week.strftime("%a #{@start_of_week.day.ordinalize} %B (%-d/%-m/%Y)")
+      .row
+        .col-md-4.previous-week
+          - if current_employee.can_view_previous_week?(@start_of_week)
+            = link_to 'previous week', week_path(@start_of_week - 7.days), class: 'btn btn-primary'
+          - else
+            = link_to 'previous week', week_path(@start_of_week - 7.days), class: 'btn btn-disabled', disabled: ''
+
+        .col-md-4.current-week
+          = @start_of_week.strftime("%a #{@start_of_week.day.ordinalize} %B")
+          %br
+          = @start_of_week.strftime("(%-d/%-m/%Y)")
+
+        .col-md-4.next-week
+          - if current_employee.can_view_next_week?(@start_of_week)
+            = link_to 'next week', week_path(@start_of_week + 7.days), class: 'btn btn-primary'
+          - else
+            = link_to 'next week', week_path(@start_of_week + 7.days), class: 'btn btn-disabled', disabled: ''
 
     = render 'time_table'

@@ -101,6 +101,25 @@ class Employee < ActiveRecord::Base
     ).order(:check_in_time).to_a
   end
 
+  def has_check_ins_on_week?(date)
+    next_week = (date..(date + 4)).to_a
+
+    next_week.each { |day| return true if all_check_ins_on_date(day).any? }
+
+    false
+  end
+
+  def can_view_next_week?(start_of_current_week)
+    has_check_ins_on_week?(start_of_current_week + 7.days) ||
+    start_of_current_week + 7.days < Date.today
+  end
+
+  def can_view_previous_week?(start_of_current_week)
+    start_of_previous_week = start_of_current_week - 7.days
+    has_check_ins_on_week?(start_of_previous_week) ||
+    created_at < start_of_previous_week
+  end
+
   def allocated_holiday_days
     standard_number_of_days = 25
 
