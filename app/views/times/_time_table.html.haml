@@ -4,8 +4,11 @@
       %tr.table-check-in-times__tr
         - @week.each do |day|
           %td.center
-            %strong
-              = link_to day.strftime('%A'), mark_sick_day_path(day), title: 'Mark as sick day', class: 'table-check-in-times__week-day', data: { toggle: :tooltip, placement: :top, confirm: 'Are you sure?' }
+            - if current_employee.sick_day?(day) || current_employee.all_check_ins_on_date(day).any?
+              %strong= day.strftime('%A')
+            - else
+              %strong
+                = link_to day.strftime('%A'), mark_sick_day_path(day), title: 'Mark as sick day', class: 'table-check-in-times__week-day', data: { toggle: :tooltip, placement: :top, confirm: 'Are you sure?' }
             - if current_employee.all_check_ins_on_date(day).any?
               %span.label.label-default.label-time-logged-today
                 = current_employee.formatted_time_checked_in_on_date(day)
