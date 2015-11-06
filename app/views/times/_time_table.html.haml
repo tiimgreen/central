@@ -7,13 +7,14 @@
             %strong= day.strftime('%A')
             - if current_employee.all_check_ins_on_date(day).any?
               %span.label.label-default.label-time-logged-today
-                = current_employee.time_checked_in_on_date(day)
+                = current_employee.formatted_time_checked_in_on_date(day)
 
     - current_employee.max_check_ins_on_week_starting(@start_of_week).times do |n|
       %tr.table-check-in-times__tr
         - 5.times do |i|
-          = render 'times/day', time: @check_in_out_times[i][n]
+          = render 'times/day', time: @check_in_out_times[i][n], i: i
   %tfooter
     %tr
       %td.center{ colspan: 5 }
         Hours worked this week:
+        %strong= current_employee.formatted_time_checked_in_on_week(@start_of_week)
