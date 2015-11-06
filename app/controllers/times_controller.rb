@@ -58,6 +58,8 @@ class TimesController < ApplicationController
   def mark_sick_day
     sick_day = current_employee.sick_days.build(date: params[:date])
 
+    # Add validation that no CheckIns exist on that date
+
     if sick_day.save
       flash[:success] = 'Successfully marked as sick day.'
     else
