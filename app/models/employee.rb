@@ -18,22 +18,40 @@ class Employee < ActiveRecord::Base
     check_ins.any? && check_ins.order(:check_in_time).last.check_out_time.nil?
   end
 
+  # Returns the total minutes checked in on date
+  #
+  # @param (Date) - the date the user was checked in
+  # @returns (Integer) - total minutes checked in on date
+  def minutes_checked_in_on_date(date)
+    total_hours = total_minutes = 0
+
+    all_check_ins_on_date(date).each { |check_in| total_minutes += check_in.time_checked_in }
+
+    total_minutes
+  end
+
   # Returns the time self was checked in on a given date in the format:
   #  6h 36m
   #
   # @param (Date) - the date the user was checked in
   # @returns (String) - formatted time checked in
-  def time_checked_in_on_date(date)
-    total_hours = total_minutes = 0
+  def formatted_time_checked_in_on_date(date)
+    total_minutes = minutes_checked_in_on_date(date)
+    format_minutes(total_minutes)
+  end
 
-    all_check_ins_on_date(date).each { |check_in| total_minutes += check_in.time_checked_in }
+  # Returns the time self was checked in for whole week:
+  #  6h 36m
+  #
+  # @param (Date) - start of week
+  # @returns (String) - formatted time checked in for week
+  def formatted_time_checked_in_on_week(date)
+    week = (date..(date + 4)).to_a
+    total_minutes = 0
 
-    if total_minutes >= 60 # if longer than or equal to an hour
-      total_hours = total_minutes / 60 # how many times total_minutes goes into 60, without remainder
-      total_minutes -= (total_hours * 60) # remaining minutes
-    end
+    week.each { |day| total_minutes += minutes_checked_in_on_date(day) }
 
-    "#{total_hours}h #{total_minutes}m"
+    format_minutes(total_minutes)
   end
 
   # Returns the largest number of CheckIns on any day of the current week
@@ -77,4 +95,26 @@ class Employee < ActiveRecord::Base
       date.to_date.beginning_of_day
     ).order(:check_in_time).to_a
   end
+
+  def allocated_holiday_days
+    standard_number_of_days = 25
+
+    # for every year, add another day, up to 35 days
+    years_at_company = Time.now.year - created_at.year
+
+    return 35 if standard_number_of_days + years_at_company > 35
+
+    standard_number_of_days + years_at_company
+  end
+
+  private
+
+    def format_minutes(minutes)
+      if minutes >= 60 # if longer than or equal to an hour
+        total_hours = minutes / 60 # how many times minutes goes into 60, without remainder
+        minutes -= (total_hours * 60) # remaining minutes
+      end
+
+      "#{total_hours}h #{minutes}m"
+    end
 end
