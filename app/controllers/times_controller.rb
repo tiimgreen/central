@@ -58,7 +58,7 @@ class TimesController < ApplicationController
   def mark_sick_day
     sick_day = current_employee.sick_days.build(date: params[:date])
 
-    # Add validation that no CheckIns exist on that date
+    # @TODO: Add validation that no CheckIns exist on that date
 
     if sick_day.save
       flash[:success] = 'Successfully marked as sick day.'
@@ -96,7 +96,7 @@ class TimesController < ApplicationController
       @start_of_week = Date.parse(start_date.to_s)
       @week = @start_of_week..(@start_of_week + 4)
 
-      @check_in_out_times = []
+      @check_in_out_times = [] # array used to populate time table
 
       @week.each_with_index do |day, i|
         @check_in_out_times[i] = []
