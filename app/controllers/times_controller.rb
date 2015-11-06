@@ -55,6 +55,18 @@ class TimesController < ApplicationController
     redirect_to root_path
   end
 
+  def mark_sick_day
+    sick_day = current_employee.sick_days.build(date: params[:date])
+
+    if sick_day.save
+      flash[:success] = 'Successfully marked as sick day.'
+    else
+      flash[:danger] = 'Error marking as sick day.'
+    end
+
+    redirect_to root_path
+  end
+
   private
 
     # Ensures the user enters a valid 24hour format, time

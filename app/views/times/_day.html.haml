@@ -1,6 +1,7 @@
 - if current_employee.sick_day?(day)
-  %td.table-check-in-times__td.sick-day.center
-    %strong Sick Day
+  - if n == 0
+    %td.table-check-in-times__td.sick-day.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
+      %strong Sick Day
 - else
   %td.table-check-in-times__td
     - if time

@@ -6,6 +6,7 @@ class Employee < ActiveRecord::Base
 
   # Rails relation that links the CheckIn model to Employees
   has_many :check_ins
+  has_many :sick_days
 
   def full_name
     "#{first_name} #{last_name}"
@@ -108,7 +109,7 @@ class Employee < ActiveRecord::Base
   end
 
   def sick_day?(date)
-    false
+    sick_days.where(date: date).any?
   end
 
   private
