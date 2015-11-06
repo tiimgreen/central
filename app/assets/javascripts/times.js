@@ -1,6 +1,12 @@
+// Initialise popovers
 $(function () {
   $('[data-toggle="popover"]').popover();
 });
+
+// Initialise tooltips
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 $('.table-check-in-times__link').on('click', function(e) {
   e.preventDefault();

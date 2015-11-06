@@ -35,6 +35,10 @@
   .table-check-in-times__td {
     height: 35px;
     width: 20%;
+
+    &.sick-day {
+      background-color: #F08D8D;
+    }
   }
 
   .table-check-in-times__link {
@@ -46,6 +50,14 @@
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  .table-check-in-times__week-day {
+    color: #000;
+
+    &:hover {
+      color: #000;
     }
   }
 

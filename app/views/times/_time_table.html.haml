@@ -4,15 +4,16 @@
       %tr.table-check-in-times__tr
         - @week.each do |day|
           %td.center
-            %strong= day.strftime('%A')
+            %strong
+              = link_to day.strftime('%A'), '#', title: 'Mark as sick day', class: 'table-check-in-times__week-day', data: { toggle: :tooltip, placement: :top }
             - if current_employee.all_check_ins_on_date(day).any?
               %span.label.label-default.label-time-logged-today
                 = current_employee.formatted_time_checked_in_on_date(day)
 
     - current_employee.max_check_ins_on_week_starting(@start_of_week).times do |n|
       %tr.table-check-in-times__tr
-        - 5.times do |i|
-          = render 'times/day', time: @check_in_out_times[i][n], i: i
+        - @week.each_with_index do |day, i|
+          = render 'times/day', time: @check_in_out_times[i][n], day: day, i: i
   %tfooter
     %tr
       %td.center{ colspan: 5 }

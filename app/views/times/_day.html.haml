@@ -1,26 +1,30 @@
-%td.table-check-in-times__td
-  - if time
-    %span.label.label-primary.label-time-table
-      %span.glyphicon.glyphicon-log-in
-      Check In
+- if current_employee.sick_day?(day)
+  %td.table-check-in-times__td.sick-day.center
+    %strong Sick Day
+- else
+  %td.table-check-in-times__td
+    - if time
+      %span.label.label-primary.label-time-table
+        %span.glyphicon.glyphicon-log-in
+        Check In
 
-    = link_to time.check_in_time.strftime("%k:%M"), '#', class: 'table-check-in-times__link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-in', placement: i > 2 ? :left : :right }
+      = link_to time.check_in_time.strftime("%k:%M"), '#', class: 'table-check-in-times__link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-in', placement: i > 2 ? :left : :right }
 
-    %div{ class: "hidden-time-form #{time.id}-check-in", style: "display: none"}
-      = form_for time, url: edit_time_check_in_path(time), html: { class: 'affix-time__form' } do |f|
-        = f.text_field :check_in_time, value: time.check_in_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field'
-        = f.submit 'Fix', class: 'btn btn-default pull-right affix-time__form--button'
-
-    %br
-
-    - if time.check_out_time
-      %span.label.label-default.label-time-table
-        %span.glyphicon.glyphicon-log-out
-        Check Out
-
-      = link_to time.check_out_time.strftime("%k:%M"), '#', class: 'table-check-in-times__link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-out', placement: i > 2 ? :left : :right }
-
-      %div{ class: "hidden-time-form #{time.id}-check-out", style: "display: none" }
-        = form_for time, url: edit_time_check_out_path(time), html: { class: 'affix-time__form' } do |f|
-          = f.text_field :check_out_time, value: time.check_out_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field'
+      %div{ class: "hidden-time-form #{time.id}-check-in", style: "display: none"}
+        = form_for time, url: edit_time_check_in_path(time), html: { class: 'affix-time__form' } do |f|
+          = f.text_field :check_in_time, value: time.check_in_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field'
           = f.submit 'Fix', class: 'btn btn-default pull-right affix-time__form--button'
+
+      %br
+
+      - if time.check_out_time
+        %span.label.label-default.label-time-table
+          %span.glyphicon.glyphicon-log-out
+          Check Out
+
+        = link_to time.check_out_time.strftime("%k:%M"), '#', class: 'table-check-in-times__link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-out', placement: i > 2 ? :left : :right }
+
+        %div{ class: "hidden-time-form #{time.id}-check-out", style: "display: none" }
+          = form_for time, url: edit_time_check_out_path(time), html: { class: 'affix-time__form' } do |f|
+            = f.text_field :check_out_time, value: time.check_out_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field'
+            = f.submit 'Fix', class: 'btn btn-default pull-right affix-time__form--button'

@@ -102,14 +102,20 @@ class Employee < ActiveRecord::Base
     # for every year, add another day, up to 35 days
     years_at_company = Time.now.year - created_at.year
 
-    return 35 if standard_number_of_days + years_at_company > 35
+    return 35 if standard_number_of_days + years_at_company >= 35
 
     standard_number_of_days + years_at_company
+  end
+
+  def sick_day?(date)
+    false
   end
 
   private
 
     def format_minutes(minutes)
+      total_hours = 0
+
       if minutes >= 60 # if longer than or equal to an hour
         total_hours = minutes / 60 # how many times minutes goes into 60, without remainder
         minutes -= (total_hours * 60) # remaining minutes
