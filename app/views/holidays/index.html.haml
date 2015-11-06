@@ -12,7 +12,7 @@
     .panel.panel-default.holiday-panel
       .panel-heading
         %h3.panel-title.holiday-panel__title
-          .pull-right
+          .pull-right{ title: 'Starting with 25 days, you earn 1 day extra holiday per year, up to 35 days', data: { toggle: :tooltip, placement: :bottom } }
             Days of holiday this year:
             %strong= current_employee.allocated_holiday_days
 

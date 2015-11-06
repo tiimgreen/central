@@ -70,9 +70,7 @@ class Employee < ActiveRecord::Base
         max_check_ins = all_check_ins_on_date(day).count
       end
 
-      if sick_days.where(date: day).any? && max_check_ins = 0
-        max_check_ins = 1
-      end
+      max_check_ins = 1 if sick_days.where(date: day).any? && max_check_ins = 0
     end
 
     max_check_ins
@@ -103,9 +101,7 @@ class Employee < ActiveRecord::Base
 
   def has_check_ins_on_week?(date)
     next_week = (date..(date + 4)).to_a
-
     next_week.each { |day| return true if all_check_ins_on_date(day).any? }
-
     false
   end
 
@@ -115,9 +111,8 @@ class Employee < ActiveRecord::Base
   end
 
   def can_view_previous_week?(start_of_current_week)
-    start_of_previous_week = start_of_current_week - 7.days
-    has_check_ins_on_week?(start_of_previous_week) ||
-    created_at < start_of_previous_week
+    has_check_ins_on_week?(start_of_current_week - 7.days) ||
+    created_at < start_of_current_week - 7.days
   end
 
   def allocated_holiday_days
