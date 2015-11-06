@@ -69,6 +69,10 @@ class Employee < ActiveRecord::Base
       if all_check_ins_on_date(day).count > max_check_ins
         max_check_ins = all_check_ins_on_date(day).count
       end
+
+      if sick_days.where(date: day).any? && max_check_ins = 0
+        max_check_ins = 1
+      end
     end
 
     max_check_ins
