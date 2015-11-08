@@ -63,7 +63,7 @@ class TimesController < ApplicationController
     if sick_day.save
       flash[:success] = 'Successfully marked as sick day.'
     else
-      flash[:danger] = 'Error marking as sick day.'
+      flash[:danger] = sick_day.errors.full_messages.first
     end
 
     redirect_to request.referrer

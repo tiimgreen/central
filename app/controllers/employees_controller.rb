@@ -5,7 +5,8 @@ class EmployeesController < ApplicationController
     @employees = Employee.all
   end
 
-  def view
+  def show
+    @employee = Employee.find(params[:id])
   end
 
   def edit
