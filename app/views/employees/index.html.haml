@@ -1,11 +1,31 @@
 %h1 Employees
 
-.row.user-card--small__container
+.row.user-card__container
   - @employees.each do |employee|
-    = link_to employee, class: '' do
-      .col-md-3.user-card--small
-        = image_tag('profile-photo.jpg', class: 'user-card--small__photo')
-        %h4.user-card--small__name
-          = employee.full_name
-          %small.user-card--small__job-title
-            = employee.job_title
+    .panel.panel-default.user-card
+
+      .user-card__side-panel
+        = image_tag('profile-photo.jpg', class: 'user-card__photo')
+        %h4.user-card__name
+          = link_to employee.full_name, employee
+          %small.user-card__job-title= employee.job_title
+
+        %ul.user-card__details
+          %li
+            %strong Reports to:
+            = link_to 'James Hall', '#'
+          %li
+            %strong Hours per week:
+            37.5
+
+      .panel-footer.user-card__footer
+
+        %ul.user-card__footer--links
+          %li
+            = link_to '#', class: 'user-card__footer--link' do
+              %span.glyphicon.glyphicon-log-in
+              Check-in History
+          %li
+            = link_to '#', class: 'user-card__footer--link' do
+              %span.glyphicon.glyphicon-log-in
+              Check-in History
