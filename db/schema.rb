@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108163022) do
+ActiveRecord::Schema.define(version: 20151108213117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,26 +25,33 @@ ActiveRecord::Schema.define(version: 20151108163022) do
   end
 
   create_table "employees", force: true do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                            default: "",    null: false
+    t.string   "encrypted_password",               default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                    default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "address_line_1"
     t.string   "address_line_2"
     t.string   "post_code"
-    t.boolean  "line_manager",           default: false
-    t.string   "job_title",              default: ""
+    t.boolean  "line_manager",                     default: false
+    t.string   "job_title",                        default: ""
     t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "active",                           default: true
+    t.float    "contracted_hours"
+    t.string   "emergency_contact_name"
+    t.string   "emergency_contact_relation"
+    t.string   "emergency_contact_phone_number"
+    t.string   "emergency_contact_phone_number_2"
   end
 
   add_index "employees", ["email"], name: "index_employees_on_email", unique: true, using: :btree
