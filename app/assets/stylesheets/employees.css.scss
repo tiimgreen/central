@@ -2,27 +2,54 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.user-card--small__container {
+.user-card__container {
   margin-top: 50px;
 }
-  .user-card--small {
-    text-align: center;
-    border-right: 1px solid #eee;
-
-    &:nth-child(4n) {
-      border-right: 0;
-    }
+  .user-card {
+    border: 1px solid #ccc;
+    margin: 0 auto 30px auto;
   }
-    .user-card--small__name {
+    .user-card__name {
       text-align: center;
     }
 
-    .user-card--small__photo {
-      border-radius: 1000px;
-      margin: 0 auto;
-      width: 80%;
+    .user-card__side-panel {
+      width: 300px;
+      height: 100%;
+      background: #eee;
+
+    }
+      .user-card__photo {
+        border-radius: 1000px;
+        margin: 0 auto;
+        width: 80%;
+      }
+
+      .user-card__job-title {
+        display: block;
+      }
+
+      .user-card__details {
+        padding: 0 20px 20px;
+        list-style: none;
+      }
+
+    .user-card__footer--links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: inline;
+        margin-right: 35px;
+      }
     }
 
-    .user-card--small__job-title {
-      display: block;
-    }
+      .user-card__footer--link {
+        color: #888;
+
+        &:hover {
+          text-decoration: none;
+          color: #555;
+        }
+      }
