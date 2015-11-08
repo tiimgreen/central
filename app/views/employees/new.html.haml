@@ -4,6 +4,8 @@
   .panel-heading Create a new Employee
   .panel-body
     = form_for(@employee) do |f|
+      = render 'shared/error_messages', object: f.object
+
       %h3.new-employee-form__subtitle Personal Details
 
       .row
@@ -35,14 +37,20 @@
         .col-md-6
           .form-group
             = f.label :contracted_hours, 'Contracted Hours', class: 'control-label'
-            = f.number_field :contracted_hours, class: 'form-control'
+            = f.text_field :contracted_hours, class: 'form-control'
           .form-group
             = f.label :line_manager_id, 'Line Manager', class: 'control-label'
             = f.collection_select :line_manager_id, @potential_line_manager, :id, :full_name, { include_blank: 'Choose a line manager...' }, { class: 'form-control' }
+          .form-group
+            = f.label :start_date, 'Start Date', class: 'control-label'
+            = f.date_field :start_date, class: 'form-control'
         .col-md-6
           .form-group
             = f.label :job_title, 'Job Title', class: 'control-label'
             = f.text_field :job_title, class: 'form-control'
+          .form-group
+            = f.label :is_line_manager, 'Is Employee a Line Manager?', class: 'control-label'
+            = f.check_box :is_line_manager, class: 'form-control'
 
       %h3.new-employee-form__subtitle Emergency Contacts
 

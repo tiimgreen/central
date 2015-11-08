@@ -60,6 +60,24 @@ $brand_primary: #00ebbe;
     }
   }
 
+  .btn-danger {
+    color: #fff;
+    background-color: #f00;
+    border: 0;
+    border-bottom: 3px solid darken(#f00, 10%);
+
+    &:hover,
+    &:focus {
+      color: #fff;
+      background-color: darken(#f00, 5%);
+      border-bottom-color: darken(#f00, 15%);
+    }
+
+    &:active {
+      border: 0;
+    }
+  }
+
 .btn-check-in,
 .btn-check-out {
   width: 100%;

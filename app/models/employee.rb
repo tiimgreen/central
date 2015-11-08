@@ -8,6 +8,17 @@ class Employee < ActiveRecord::Base
   has_many :check_ins
   has_many :sick_days
 
+  # Validations
+  validates :email,                          presence: true
+  validates :first_name,                     presence: true
+  validates :last_name,                      presence: true
+  validates :job_title,                      presence: true
+  validates :start_date,                     presence: true
+  validates :contracted_hours,               presence: true
+  validates :emergency_contact_name,         presence: true
+  validates :emergency_contact_relation,     presence: true
+  validates :emergency_contact_phone_number, presence: true
+
   def to_param
     [id, full_name.parameterize].join('-')
   end
@@ -18,6 +29,10 @@ class Employee < ActiveRecord::Base
 
   def is_active?
     active
+  end
+
+  def line_manager
+    line_manager_id.nil? ? nil : Employee.find(line_manager_id)
   end
 
   # Is self checked in currently

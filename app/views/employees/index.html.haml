@@ -12,16 +12,21 @@
       .user-card__side-panel
         = image_tag('profile-photo.jpg', class: 'user-card__photo')
         %h4.user-card__name
-          = link_to employee.full_name, employee
-          %small.user-card__job-title= employee.job_title
+          %span.user-card__full_name= link_to employee.full_name, employee
+          - if employee.is_line_manager
+            %br
+            %span.label.label-default.user-card__director-label DIRECTOR
+          - else
+            %small.user-card__job-title= employee.job_title
 
         %ul.user-card__details
-          %li
-            %strong Reports to:
-            = link_to 'James Hall', '#'
+          - if employee.line_manager
+            %li
+              %strong Reports to:
+              = link_to employee.line_manager.full_name, employee.line_manager
           %li
             %strong Hours per week:
-            37.5
+            = employee.contracted_hours
 
       .panel-footer.user-card__footer
 

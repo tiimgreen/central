@@ -11,8 +11,8 @@
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         - if employee_signed_in?
-          %li= link_to 'Holiday Requests', '#' if current_employee.line_manager
-          %li= link_to 'Employees', employees_path, class: 'header__right-space' if current_employee.line_manager
+          %li= link_to 'Holiday Requests', '#' if current_employee.is_line_manager
+          %li= link_to 'Employees', employees_path, class: 'header__right-space' if current_employee.is_line_manager
 
         %li= link_to 'Check In', root_path
         %li= link_to 'Holidays', holidays_path
@@ -22,6 +22,6 @@
               = current_employee.full_name
               %span.caret
             %ul.dropdown-menu
-              %li= link_to 'Edit Profile', edit_employee_registration_path
-              %li.divider{:role => "separator"}
+              %li= link_to 'Edit Details', edit_employee_registration_path
+              %li.divider{ role: :separator }
               %li= link_to 'Log Out', destroy_employee_session_path, method: :delete

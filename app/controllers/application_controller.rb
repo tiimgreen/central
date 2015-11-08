@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_line_manager!
-    unless current_employee.line_manager
+    unless current_employee.is_line_manager
       flash[:warning] = 'You do not have the correct access to do this.'
       redirect_to root_path
     end
