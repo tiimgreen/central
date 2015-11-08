@@ -9,6 +9,17 @@ class EmployeesController < ApplicationController
     @employee = Employee.find(params[:id])
   end
 
+  def new
+    @employee = Employee.new
+    @potential_line_manager = Employee.where(active: true, line_manager: true)
+  end
+
+  def create
+  end
+
   def edit
+  end
+
+  def update
   end
 end

@@ -16,6 +16,10 @@ class Employee < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def is_active?
+    active
+  end
+
   # Is self checked in currently
   #
   # @returns (Boolean)
@@ -74,7 +78,7 @@ class Employee < ActiveRecord::Base
         max_check_ins = all_check_ins_on_date(day).count
       end
 
-      max_check_ins = 1 if sick_days.where(date: day).any? && max_check_ins = 0
+      max_check_ins = 1 if sick_days.where(date: day).any? && max_check_ins == 0
     end
 
     max_check_ins

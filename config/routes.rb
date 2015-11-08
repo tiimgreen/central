@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'check-out', to: 'check_ins#check_out', as: :check_out
 
   resources :holidays, only: :index
-  resources :employees, only: %i(index show edit)
+  resources :employees, only: %i(index show edit new)
 
   # resources :times, only: %i(edit_check_in edit_check_out)
   patch 'times/:id/edit/check-in', to: 'times#edit_check_in', as: :edit_time_check_in
