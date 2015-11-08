@@ -46,6 +46,28 @@
       <hr>
 
       <div class="form-group">
+        <%= f.label :emergency_contact_name, 'Emergency Contact Name', class: 'control-label' %>
+        <%= f.text_field :emergency_contact_name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :emergency_contact_relation, 'Emergency Contact Relation', class: 'control-label' %>
+        <%= f.text_field :emergency_contact_relation, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :emergency_contact_phone_number, 'Emergency Contact Phone Number', class: 'control-label' %>
+        <%= f.text_field :emergency_contact_phone_number, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :emergency_contact_phone_number, 'Emergency Contact Phone Number (other)', class: 'control-label' %>
+        <%= f.text_field :emergency_contact_phone_number_2, class: 'form-control' %>
+      </div>
+
+      <hr>
+
+      <div class="form-group">
         <%= f.label :password, 'New Password', class: 'control-label' %>
         <%= f.password_field :password, class: 'form-control', autocomplete: :off %>
       </div>
