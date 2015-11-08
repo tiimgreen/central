@@ -8,6 +8,10 @@ class Employee < ActiveRecord::Base
   has_many :check_ins
   has_many :sick_days
 
+  def to_param
+    [id, full_name.parameterize].join('-')
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -112,14 +116,14 @@ class Employee < ActiveRecord::Base
 
   def can_view_previous_week?(start_of_current_week)
     has_check_ins_on_week?(start_of_current_week - 7.days) ||
-    created_at < start_of_current_week - 7.days
+    start_date < start_of_current_week - 7.days
   end
 
   def allocated_holiday_days
     standard_number_of_days = 25
 
     # for every year, add another day, up to 35 days
-    years_at_company = Time.now.year - created_at.year
+    years_at_company = Time.now.year - start_date.year
 
     return 35 if standard_number_of_days + years_at_company >= 35
 
