@@ -1,0 +1,12 @@
+- provide :title, 'Holiday Requests'
+
+%h1 Holiday Requests
+
+%ul
+  - @subordinates.each do |subordinate|
+    %li= subordinate.full_name
+    %ul
+      - subordinate.employee_holidays.order(:date).group_by(&:created_at).each do |requested_at, holiday|
+        %li
+          = requested_at
+          = holiday[0]

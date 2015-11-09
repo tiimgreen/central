@@ -4,6 +4,7 @@
   <title><%= content_for?(:title) ? "Central &mdash; #{yield(:title)}".html_safe : "Central" %></title>
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
@@ -16,8 +17,6 @@
   <%= yield %>
 </div>
 
-<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <%= javascript_include_tag 'application' %>
 
 </body>

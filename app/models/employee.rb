@@ -7,6 +7,7 @@ class Employee < ActiveRecord::Base
   # Rails relation that links the CheckIn model to Employees
   has_many :check_ins
   has_many :sick_days
+  has_many :employee_holidays
 
   # Validations
   validates :email,                          presence: true
@@ -48,6 +49,10 @@ class Employee < ActiveRecord::Base
   # @returns (Employee) - the line manager of self, if one is set
   def line_manager
     line_manager_id.nil? ? nil : Employee.find(line_manager_id)
+  end
+
+  def subordinates
+    Employee.where(line_manager_id: id)
   end
 
   # Is self checked in currently
@@ -149,7 +154,7 @@ class Employee < ActiveRecord::Base
 
   def can_view_next_week?(start_of_current_week)
     has_check_ins_on_week?(start_of_current_week + 7.days) ||
-    start_of_current_week + 7.days < Date.today
+    start_of_current_week + 7.days <= Date.today
   end
 
   def can_view_previous_week?(start_of_current_week)
@@ -166,6 +171,12 @@ class Employee < ActiveRecord::Base
     return 35 if standard_number_of_days + years_at_company >= 35
 
     standard_number_of_days + years_at_company
+  end
+
+  def remaining_holiday_days
+    holidays_used = employee_holidays.where(authorised: true).count
+
+    allocated_holiday_days - holidays_used
   end
 
   def sick_day?(date)

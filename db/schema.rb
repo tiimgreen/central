@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108225544) do
+ActiveRecord::Schema.define(version: 20151109172113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,21 @@ ActiveRecord::Schema.define(version: 20151108225544) do
     t.datetime "check_out_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "company_holidays", force: true do |t|
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "employee_holidays", force: true do |t|
+    t.integer  "employee_id"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "authorised",       default: false
+    t.integer  "authorised_by_id"
   end
 
   create_table "employees", force: true do |t|

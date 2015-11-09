@@ -13,9 +13,14 @@
       .panel-heading
         %h3.panel-title.holiday-panel__title
           .pull-right{ title: 'Starting with 25 days, you earn 1 day extra holiday per year, up to 35 days', data: { toggle: :tooltip, placement: :bottom } }
-            Days of holiday this year:
-            %strong= current_employee.allocated_holiday_days
+            Days of holiday remaining:
+            %strong.remaining-days{ data: { holiday_days: current_employee.remaining_holiday_days } }
+              = current_employee.remaining_holiday_days
 
           Holidays
-    .panel-body
-      = form_for(@holiday)
+      .panel-body
+        = form_for(@holiday) do |f|
+          = f.label :date, class: 'control-label'
+          = f.text_field :date, id: 'daterange', class: 'form-control'
+
+          = f.submit 'Request', class: 'btn btn-default pull-right'
