@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109172113) do
+ActiveRecord::Schema.define(version: 20151109185324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,9 @@ ActiveRecord::Schema.define(version: 20151109172113) do
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "authorised",       default: false
+    t.boolean  "authorised",         default: false
     t.integer  "authorised_by_id"
+    t.integer  "holiday_request_id"
   end
 
   create_table "employees", force: true do |t|
@@ -72,6 +73,14 @@ ActiveRecord::Schema.define(version: 20151109172113) do
 
   add_index "employees", ["email"], name: "index_employees_on_email", unique: true, using: :btree
   add_index "employees", ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, using: :btree
+
+  create_table "holiday_requests", force: true do |t|
+    t.integer  "employee_id"
+    t.boolean  "authorised",       default: false
+    t.integer  "authorised_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sick_days", force: true do |t|
     t.date     "date"

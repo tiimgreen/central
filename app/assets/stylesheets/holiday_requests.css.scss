@@ -1,0 +1,46 @@
+.panel-holiday-request {
+}
+
+  .panel-holiday-request__summary-box {
+    width: 200px;
+    margin: 0 10px;
+    display: inline-block;
+
+    &.primary {
+
+      .panel-holiday-request__summary-box--title {
+        background: #7BC9E3;
+        border-color: #62A0B5;
+      }
+
+      .panel-holiday-request__summary-box--body {
+        border-color: #62A0B5;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+    }
+  }
+    .panel-holiday-request__panel-list {
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+
+      li {
+        display: inline;
+      }
+    }
+
+    .panel-holiday-request__summary-box--title {
+      background: #f5f5f5;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
+      border: 1px solid #ddd;
+      padding: 5px;
+    }
+
+    .panel-holiday-request__summary-box--body {
+      border: 1px solid #ddd;
+      border-top: none;
+      padding: 5px;
+      text-align: center;
+    }

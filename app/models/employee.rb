@@ -7,7 +7,7 @@ class Employee < ActiveRecord::Base
   # Rails relation that links the CheckIn model to Employees
   has_many :check_ins
   has_many :sick_days
-  has_many :employee_holidays
+  has_many :holiday_requests
 
   # Validations
   validates :email,                          presence: true
@@ -181,6 +181,16 @@ class Employee < ActiveRecord::Base
 
   def sick_day?(date)
     sick_days.where(date: date).any?
+  end
+
+  def unapproved_holiday_requests
+    count = 0
+
+    subordinates.each do |subordinate|
+      count += subordinate.holiday_requests.where(authorised: false).count
+    end
+
+    count
   end
 
   private

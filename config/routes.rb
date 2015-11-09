@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   post 'check-out', to: 'check_ins#check_out', as: :check_out
 
   resources :employees
-  resources :employee_holidays, path: :holidays
-  get 'holiday-requests', to: 'employee_holidays#requests', as: :holiday_requests
+  resources :employee_holidays, path: 'holidays'
+  resources :holiday_requests,  path: 'holiday-requests'
 
   post 'employees/:id/deactivate-employee', to: 'employees#deactivate_employee', as: :deactivate_employee
 

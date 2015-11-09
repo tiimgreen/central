@@ -11,8 +11,13 @@
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         - if employee_signed_in?
-          %li= link_to 'Holiday Requests', holiday_requests_path if current_employee.is_line_manager
-          %li= link_to 'Employees', employees_path, class: 'header__right-space' if current_employee.is_line_manager
+          - if current_employee.is_line_manager
+            %li
+              = link_to holiday_requests_path do
+                Holiday Requests
+                - if current_employee.unapproved_holiday_requests > 0
+                  %span.badge= current_employee.unapproved_holiday_requests
+            %li= link_to 'Employees', employees_path, class: 'header__right-space'
 
         %li= link_to 'Check In', root_path
         %li= link_to 'Holidays', employee_holidays_path

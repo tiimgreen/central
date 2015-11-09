@@ -15,12 +15,6 @@ class EmployeeHolidaysController < ApplicationController
     if calculate_holidays_used(date_range) <= current_employee.remaining_holiday_days
       create_holidays(parse_date_range(date_range))
     end
-
-    exit
-  end
-
-  def requests
-    @subordinates = current_employee.subordinates
   end
 
   private
@@ -35,9 +29,14 @@ class EmployeeHolidaysController < ApplicationController
     end
 
     def create_holidays(date_range)
+      request = current_employee.holiday_request.create
+
       date_range.each do |date|
         if is_valid_date?(date)
-          holiday = current_employee.employee_holidays.create(date: date)
+          holiday = current_employee.employee_holidays.create(
+            date: date,
+            holiday_request: request
+          )
         end
       end
     end
