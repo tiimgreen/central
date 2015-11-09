@@ -6,7 +6,7 @@
   - subordinate.holiday_requests.each do |request|
     .panel.panel-default.panel-holiday-request
       .panel-heading.panel-holiday-request__heading
-        = subordinate.full_name
+        = link_to subordinate.full_name, subordinate
       .panel-body.panel-holiday-request__body
 
         %ul.panel-holiday-request__panel-list

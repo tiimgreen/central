@@ -11,7 +11,7 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
-    @potential_line_manager = Employee.where(active: true, line_manager: true)
+    @potential_line_manager = Employee.where(active: true, is_line_manager: true)
   end
 
   def create

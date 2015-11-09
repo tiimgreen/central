@@ -174,9 +174,13 @@ class Employee < ActiveRecord::Base
   end
 
   def remaining_holiday_days
-    holidays_used = employee_holidays.where(authorised: true).count
+    count = 0
 
-    allocated_holiday_days - holidays_used
+    holidays_used = holiday_requests.each do |request|
+      count += request.employee_holidays.where(authorised: true).count
+    end
+
+    allocated_holiday_days - count
   end
 
   def sick_day?(date)
