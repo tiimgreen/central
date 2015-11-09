@@ -19,18 +19,33 @@ class Employee < ActiveRecord::Base
   validates :emergency_contact_relation,     presence: true
   validates :emergency_contact_phone_number, presence: true
 
+  # Build in rails method that specifies how the parameter for the Model will
+  # appear in URLs e.g.:
+  #
+  #   /employees/1-tim-green
+  #
+  # @returns (String) - URL parameter
   def to_param
     [id, full_name.parameterize].join('-')
   end
 
+  # Returns full name of employee
+  #
+  # @returns (String) - full name
   def full_name
     "#{first_name} #{last_name}"
   end
 
+  # More readable method to return the active value
+  #
+  # @returns (Boolean) - Employee.active
   def is_active?
     active
   end
 
+  # Returns an Employee model of the line manager of self.
+  #
+  # @returns (Employee) - the line manager of self, if one is set
   def line_manager
     line_manager_id.nil? ? nil : Employee.find(line_manager_id)
   end
@@ -122,9 +137,13 @@ class Employee < ActiveRecord::Base
     ).order(:check_in_time).to_a
   end
 
+  # Does self have any check-ins on the week starting on the given date
+  #
+  # @returns (Boolean) - Employee.active
   def has_check_ins_on_week?(date)
-    next_week = (date..(date + 4)).to_a
-    next_week.each { |day| return true if all_check_ins_on_date(day).any? }
+    first_day = date.at_beginning_of_week
+    current_week = (first_day..(first_day + 4)).to_a
+    current_week.each { |day| return true if all_check_ins_on_date(day).any? }
     false
   end
 
