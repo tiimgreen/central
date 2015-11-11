@@ -8,4 +8,10 @@ class HolidayRequestsController < ApplicationController
 
   def show
   end
+
+  def approve
+  end
+
+  def decline
+  end
 end

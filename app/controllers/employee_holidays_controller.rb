@@ -15,6 +15,9 @@ class EmployeeHolidaysController < ApplicationController
     if calculate_holidays_used(date_range) <= current_employee.remaining_holiday_days
       create_holidays(parse_date_range(date_range))
     end
+
+    flash[:success] = "Holiday request sent, you're line manager will respond soon."
+    redirect_to employee_holidays_path
   end
 
   private
@@ -29,14 +32,11 @@ class EmployeeHolidaysController < ApplicationController
     end
 
     def create_holidays(date_range)
-      request = current_employee.holiday_request.create
+      request = current_employee.holiday_requests.create
 
       date_range.each do |date|
         if is_valid_date?(date)
-          holiday = current_employee.employee_holidays.create(
-            date: date,
-            holiday_request: request
-          )
+          request.employee_holidays.create(date: date) if is_valid_date?(date)
         end
       end
     end

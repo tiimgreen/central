@@ -12,18 +12,6 @@ class HolidayRequest < ActiveRecord::Base
   end
 
   def total_days_requested
-    count = 0
-
-    (date_from..date_to).to_a.each do |date|
-      count += 1 if is_valid_date?(date)
-    end
-
-    count
+    employee_holidays.count
   end
-
-  private
-
-    def is_valid_date?(date)
-      !date.saturday? && !date.sunday? && !CompanyHoliday.is_holiday?(date)
-    end
 end
