@@ -150,7 +150,7 @@ class Employee < ActiveRecord::Base
 
   # Does self have any check-ins on the week starting on the given date
   #
-  # @returns (Boolean) - Employee.active
+  # @returns (Boolean)
   def has_check_ins_on_week?(date)
     first_day = date.at_beginning_of_week
     current_week = (first_day..(first_day + 4)).to_a
@@ -168,6 +168,9 @@ class Employee < ActiveRecord::Base
     start_date <= start_of_current_week - 3.days
   end
 
+  # Calculates the amount of holiday days per year the employee gets
+  #
+  # @returns (Integer)
   def allocated_holiday_days
     standard_number_of_days = 25
 
@@ -179,6 +182,9 @@ class Employee < ActiveRecord::Base
     standard_number_of_days + years_at_company
   end
 
+  # Calculates the remaining holiday days the employee has this year
+  #
+  # @returns (Integer)
   def remaining_holiday_days
     count = 0
 
@@ -189,6 +195,9 @@ class Employee < ActiveRecord::Base
     allocated_holiday_days - count
   end
 
+  # Calculates whether the employee can mark the given day as a sick day
+  #
+  # @returns (Boolean)
   def can_mark_as_sick_day?(day)
     Date.today >= day &&
     !sick_day?(day) &&
@@ -196,14 +205,23 @@ class Employee < ActiveRecord::Base
     !all_check_ins_on_date(day).any?
   end
 
+  # Is the given day a sick day?
+  #
+  # @returns (Boolean)
   def sick_day?(date)
     sick_days.where(date: date).any?
   end
 
+  # Returns all holiday requests that have not been approved
+  #
+  # @returns (ActiveRecord::Relation)
   def unapproved_holiday_requests
     holiday_requests.where(authorised: false)
   end
 
+  # Returns all holiday requests that have been approved
+  #
+  # @returns (ActiveRecord::Relation)
   def approved_holiday_requests
     holiday_requests.where(authorised: true)
   end
