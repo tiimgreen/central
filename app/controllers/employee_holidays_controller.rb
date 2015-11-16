@@ -13,7 +13,7 @@ class EmployeeHolidaysController < ApplicationController
   def create
     date_range = params[:employee_holiday][:date]
 
-    if current_employee.can_take_holiday(date_range)
+    if current_employee.has_enough_holiday_left?(date_range)
       create_holidays(parse_date_range(date_range))
     end
 
@@ -22,15 +22,6 @@ class EmployeeHolidaysController < ApplicationController
   end
 
   private
-
-    def parse_date_range(date_range)
-      dates = date_range.split(' - ')
-
-      start_date = Date.parse(dates[0])
-      end_date = Date.parse(dates[1])
-
-      (start_date..end_date).to_a
-    end
 
     def create_holidays(date_range)
       request = current_employee.holiday_requests.create

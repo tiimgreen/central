@@ -12,6 +12,7 @@
       %ul.nav.navbar-nav.navbar-right
         - if employee_signed_in?
           - if current_employee.is_line_manager
+            %li= link_to 'Company Holidays', company_holidays_path
             %li
               = link_to holiday_requests_path do
                 Holiday Requests
@@ -19,9 +20,9 @@
                   %span.badge= current_employee.pending_subordinate_holiday_requests.count
             %li= link_to 'Employees', employees_path, class: 'header__right-space'
 
-        %li= link_to 'Check In', root_path
-        %li= link_to 'Holidays', employee_holidays_path
-        - if employee_signed_in?
+          %li= link_to 'Check In', root_path
+          %li= link_to 'Holidays', employee_holidays_path
+
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               = current_employee.full_name

@@ -1,4 +1,4 @@
-- provide :title, 'New Company Holiday'
+- provide :title, 'Company Holidays'
 
 .panel.panel-default.panel-log-in.log-in-panel
   .panel-heading New Company Holiday
@@ -6,6 +6,12 @@
     = form_for(@company_holiday) do |f|
       .form-group
         = f.label :date, class: 'control-label'
-        = f.date_field :date, class: 'form-control'
+        = f.text_field :date, id: 'daterange', class: 'form-control'
 
       = f.submit 'Create Holiday', class: 'btn btn-default pull-right'
+
+
+%h3 Company Holidays
+.row
+  - @company_holidays.each do |holiday|
+    = render 'shared/company_holiday', holiday: holiday

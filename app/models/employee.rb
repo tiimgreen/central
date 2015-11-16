@@ -220,7 +220,7 @@ class Employee < ActiveRecord::Base
     requests
   end
 
-  def can_take_holiday(date_range)
+  def has_enough_holiday_left?(date_range)
     calculate_holidays_used(date_range) <= current_employee.remaining_holiday_days
   end
 

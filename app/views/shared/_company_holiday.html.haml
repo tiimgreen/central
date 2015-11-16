@@ -1,0 +1,15 @@
+.col-md-3
+  .panel.panel-primary.holiday-panel
+    .panel-heading.holiday-panel__heading
+      - if current_employee.is_line_manager
+        .pull-righ
+          = link_to company_holiday_path(holiday), method: :delete, class: 'holiday-panel__delete-holiday', data: { confirm: 'Are you sure you want to delete this holiday?' } do
+            delete
+    .panel-body
+      .row
+        .col-md-12.holiday-panel__section
+          - if holiday.christmas?
+            .pull-right
+              %span.glyphicon.glyphicon-tree-conifer.holiday-panel__christmas-tree
+          %strong Date
+          .holiday-panel__section--value= holiday.date.strftime("%a #{holiday.date.day.ordinalize} %B %Y")

@@ -42,12 +42,7 @@
               .holiday-panel__section--value= holiday.total_days_requested
 
     %h3 Company Holidays
-    - @company_holidays.each do |holiday|
-      .panel.panel-primary
-        .panel-heading
-        .panel-body
-          .row
-            .col-md-12.holiday-panel__section
-              %strong Date
-              .holiday-panel__section--value= holiday.date.strftime("%a #{holiday.date.day.ordinalize} %B %Y")
+    .row
+      - @company_holidays.each do |holiday|
+        = render 'shared/company_holiday', holiday: holiday
 

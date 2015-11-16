@@ -4,6 +4,7 @@ class TimesController < ApplicationController
   before_action :validate_check_out_time, only: :edit_check_out
   before_action :set_check_in, only: %i( edit_check_out edit_check_in )
   before_action :set_week_variables, only: %i( index week )
+  before_action :validate_is_start_of_week, only: :week
 
   def index
   end
@@ -106,6 +107,14 @@ class TimesController < ApplicationController
         current_employee.all_check_ins_on_date(day).each do |check_in|
           @check_in_out_times[i].push(check_in)
         end
+      end
+    end
+
+    def validate_is_start_of_week
+      start_of_week = Date.parse(params[:start_of_week]).at_beginning_of_week
+
+      unless Date.parse(params[:start_of_week]) == start_of_week
+        redirect_to week_path(start_of_week)
       end
     end
 end

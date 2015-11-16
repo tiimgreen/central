@@ -2,17 +2,42 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 .holiday-panel {
 
 }
 
-  .holiday-panel__title {
+  .holiday-panel__christmas-tree {
+    color: #026B3A;
+  }
 
-    .pull-right {
-      font-size: 15px;
-      font-weight: normal;
+  .holiday-panel__section {
+    text-align: center;
+    border-right: 1px solid #eee;
+
+    &:last-child {
+      border-right: 0;
     }
   }
+
+  .holiday-panel__heading {
+    min-height: 30px;
+  }
+
+    .holiday-panel__title {
+
+      .pull-right {
+        font-size: 15px;
+        font-weight: normal;
+      }
+    }
+
+    .holiday-panel__delete-holiday {
+      color: #000;
+      float: right;
+      display: block;
+      margin: -5px -5px 0 0;
+    }
 
   .btn-holiday-request {
     margin-top: 15px;

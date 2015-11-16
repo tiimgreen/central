@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include HolidaysHelper
 
   def on_page(cont, act = '')
     if act.present?
