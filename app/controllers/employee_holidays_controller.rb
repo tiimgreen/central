@@ -4,7 +4,7 @@ class EmployeeHolidaysController < ApplicationController
 
   def index
     @holiday = EmployeeHoliday.new
-    @company_holidays = CompanyHoliday.all
+    @company_holidays = CompanyHoliday.all.order(:date)
   end
 
   def new
@@ -13,7 +13,7 @@ class EmployeeHolidaysController < ApplicationController
   def create
     date_range = params[:employee_holiday][:date]
 
-    if calculate_holidays_used(date_range) <= current_employee.remaining_holiday_days
+    if current_employee.can_take_holiday(date_range)
       create_holidays(parse_date_range(date_range))
     end
 
@@ -36,23 +36,13 @@ class EmployeeHolidaysController < ApplicationController
       request = current_employee.holiday_requests.create
 
       date_range.each do |date|
-        if is_valid_date?(date)
-          request.employee_holidays.create(date: date) if is_valid_date?(date)
-        end
-      end
-    end
-
-    def calculate_holidays_used(date_range)
-      holidays_used = 0
-
-      parse_date_range(date_range).each do |date|
-        holidays_used += 1 if is_valid_date?(date)
+        request.employee_holidays.create(date: date) if current_employee.is_allowed_date_off?(date)
       end
 
-      holidays_used
-    end
-
-    def is_valid_date?(date)
-      !date.saturday? && !date.sunday? && !CompanyHoliday.is_holiday?(date)
+      # If current_employee is a line manager, approve the request by default,
+      # so long as there is no more than 2 other line managers away
+      if current_employee.is_line_manager
+        request.update_attributes(authorised: true, authorised_by_id: current_employee.id)
+      end
     end
 end

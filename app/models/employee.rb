@@ -15,10 +15,14 @@ class Employee < ActiveRecord::Base
   validates :last_name,                      presence: true
   validates :job_title,                      presence: true
   validates :start_date,                     presence: true
+  validates :is_line_manager,                presence: true
   validates :contracted_hours,               presence: true
   validates :emergency_contact_name,         presence: true
   validates :emergency_contact_relation,     presence: true
   validates :emergency_contact_phone_number, presence: true
+
+  MAX_NUMBER_OF_SUBORDINATES_OFF = 3
+  MAX_NUMBER_OF_LINE_MANAGERS_OFF = 2
 
   # Build in rails method that specifies how the parameter for the Model will
   # appear in URLs e.g.:
@@ -113,7 +117,9 @@ class Employee < ActiveRecord::Base
         max_check_ins = all_check_ins_on_date(day).count
       end
 
-      max_check_ins = 1 if sick_days.where(date: day).any? && max_check_ins == 0
+      if max_check_ins == 0
+        max_check_ins = 1 if sick_day?(day) || CompanyHoliday.is_holiday?(day)
+      end
     end
 
     max_check_ins
@@ -183,6 +189,12 @@ class Employee < ActiveRecord::Base
     allocated_holiday_days - count
   end
 
+  def can_mark_as_sick_day?(day)
+    Date.today >= day &&
+    !sick_day?(day) &&
+    !all_check_ins_on_date(day).any?
+  end
+
   def sick_day?(date)
     sick_days.where(date: date).any?
   end
@@ -207,6 +219,10 @@ class Employee < ActiveRecord::Base
     requests
   end
 
+  def can_take_holiday(date_range)
+    calculate_holidays_used(date_range) <= current_employee.remaining_holiday_days
+  end
+
   private
 
     def format_minutes(minutes)
@@ -218,5 +234,45 @@ class Employee < ActiveRecord::Base
       end
 
       "#{total_hours}h #{minutes}m"
+    end
+
+    def calculate_holidays_used(date_range)
+      holidays_used = 0
+
+      parse_date_range(date_range).each do |date|
+        holidays_used += 1 if is_allowed_date_off?(date)
+      end
+
+      holidays_used
+    end
+
+    def is_allowed_date_off?(date)
+      !is_weekend?(date) &&
+      !is_company_holiday?(date) &&
+      !will_be_understaffed?(date)
+    end
+
+    def is_weekend?(date)
+      !date.saturday? && !date.sunday?
+    end
+
+    def is_company_holiday?(date)
+      CompanyHoliday.is_holiday?(date)
+    end
+
+    def will_be_understaffed?(date)
+      employees = Employee.where(is_line_manager: is_line_manager)
+      employees_off = 0
+
+      employees.each do |employee|
+        holidays = EmployeeHoliday.where(employee_id: employee.id, date: date)
+        employees_off += holidays.count
+      end
+
+      if is_line_manager
+        MAX_LINE_MANAGERS_OFF - employees_off > 0
+      else
+        MAX_SUBORDINATES_OFF - employees_off > 0
+      end
     end
 end
