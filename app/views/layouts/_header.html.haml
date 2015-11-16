@@ -15,8 +15,8 @@
             %li
               = link_to holiday_requests_path do
                 Holiday Requests
-                - if current_employee.unapproved_holiday_requests > 0
-                  %span.badge= current_employee.unapproved_holiday_requests
+                - if current_employee.pending_subordinate_holiday_requests.count > 0
+                  %span.badge= current_employee.pending_subordinate_holiday_requests.count
             %li= link_to 'Employees', employees_path, class: 'header__right-space'
 
         %li= link_to 'Check In', root_path

@@ -1,7 +1,7 @@
 class HolidayRequest < ActiveRecord::Base
   has_many :employee_holidays
 
-  belongs_to :employees
+  belongs_to :employee
 
   def date_from
     employee_holidays.order(:date).first.date

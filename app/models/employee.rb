@@ -159,7 +159,7 @@ class Employee < ActiveRecord::Base
 
   def can_view_previous_week?(start_of_current_week)
     has_check_ins_on_week?(start_of_current_week - 7.days) ||
-    start_date < start_of_current_week - 7.days
+    start_date <= start_of_current_week - 3.days
   end
 
   def allocated_holiday_days
@@ -176,8 +176,8 @@ class Employee < ActiveRecord::Base
   def remaining_holiday_days
     count = 0
 
-    holidays_used = holiday_requests.each do |request|
-      count += request.employee_holidays.where(authorised: true).count
+    approved_holiday_requests.each do |request|
+      count += request.employee_holidays.count
     end
 
     allocated_holiday_days - count
@@ -188,13 +188,23 @@ class Employee < ActiveRecord::Base
   end
 
   def unapproved_holiday_requests
-    count = 0
+    holiday_requests.where(authorised: false)
+  end
+
+  def approved_holiday_requests
+    holiday_requests.where(authorised: true)
+  end
+
+  def pending_subordinate_holiday_requests
+    requests = []
 
     subordinates.each do |subordinate|
-      count += subordinate.holiday_requests.where(authorised: false).count
+      if (pending_requests = subordinate.holiday_requests.where(authorised: false).to_a).count > 0
+        requests << pending_requests
+      end
     end
 
-    count
+    requests
   end
 
   private

@@ -16,10 +16,10 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(employee_params.merge({ password: 'password' }))
-    @potential_line_manager = Employee.where(active: true, line_manager: true)
+    @potential_line_manager = Employee.where(active: true, is_line_manager: true)
 
     if @employee.save
-      flash[:success] = 'Employee saved!'
+      flash[:success] = "Employee saved! Their password is 'password', please encourage them to change this!"
       redirect_to @employee
     else
       flash[:danger] = 'Error saving employee'

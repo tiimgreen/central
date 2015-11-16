@@ -1,9 +1,13 @@
 - provide :title, 'Holiday Requests'
 
+.pull-right
+  = link_to new_company_holiday_path, class: 'btn btn-primary' do
+    Create Company Holiday
+
 %h1 Holiday Requests
 
 - @subordinates.each do |subordinate|
-  - subordinate.holiday_requests.each do |request|
+  - subordinate.unapproved_holiday_requests.each do |request|
     .panel.panel-default.panel-holiday-request
       .panel-heading.panel-holiday-request__heading
         = link_to subordinate.full_name, subordinate
@@ -24,7 +28,7 @@
               .panel-holiday-request__summary-box--body= request.total_days_requested
 
         .pull-right
-          = link_to '#', class: 'btn btn-danger' do
+          = link_to decline_holiday_request_path(request), class: 'btn btn-danger' do
             Deny
-          = link_to '#', class: 'btn btn-default' do
+          = link_to approve_holiday_request_path(request), class: 'btn btn-default' do
             Approve

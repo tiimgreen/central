@@ -13,10 +13,13 @@ Rails.application.routes.draw do
   post 'check-out', to: 'check_ins#check_out', as: :check_out
 
   resources :employees
-  resources :employee_holidays, path: 'holidays'
-  resources :holiday_requests,  path: 'holiday-requests'
-
   post 'employees/:id/deactivate-employee', to: 'employees#deactivate_employee', as: :deactivate_employee
+
+  resources :employee_holidays, path: 'holidays'
+
+  resources :holiday_requests,  path: 'holiday-requests'
+  get 'holiday-requests/:id/approve', to: 'holiday_requests#approve', as: :approve_holiday_request
+  get 'holiday-requests/:id/decline', to: 'holiday_requests#decline', as: :decline_holiday_request
 
   # resources :times, only: %i(edit_check_in edit_check_out)
   patch 'times/:id/edit/check-in', to: 'times#edit_check_in', as: :edit_time_check_in
