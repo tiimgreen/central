@@ -1,4 +1,6 @@
 class Employee < ActiveRecord::Base
+  include HolidaysHelper
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -20,9 +22,6 @@ class Employee < ActiveRecord::Base
   validates :emergency_contact_name,         presence: true
   validates :emergency_contact_relation,     presence: true
   validates :emergency_contact_phone_number, presence: true
-
-  MAX_NUMBER_OF_SUBORDINATES_OFF = 3
-  MAX_NUMBER_OF_LINE_MANAGERS_OFF = 2
 
   # Build in rails method that specifies how the parameter for the Model will
   # appear in URLs e.g.:
@@ -239,7 +238,13 @@ class Employee < ActiveRecord::Base
   end
 
   def has_enough_holiday_left?(date_range)
-    calculate_holidays_used(date_range) <= current_employee.remaining_holiday_days
+    calculate_holidays_used(date_range) <= remaining_holiday_days
+  end
+
+  def is_allowed_date_off?(date)
+    !is_weekend?(date) &&
+    !is_company_holiday?(date) &&
+    !will_be_understaffed?(self, date)
   end
 
   private
@@ -263,35 +268,5 @@ class Employee < ActiveRecord::Base
       end
 
       holidays_used
-    end
-
-    def is_allowed_date_off?(date)
-      !is_weekend?(date) &&
-      !is_company_holiday?(date) &&
-      !will_be_understaffed?(date)
-    end
-
-    def is_weekend?(date)
-      !date.saturday? && !date.sunday?
-    end
-
-    def is_company_holiday?(date)
-      CompanyHoliday.is_holiday?(date)
-    end
-
-    def will_be_understaffed?(date)
-      employees = Employee.where(is_line_manager: is_line_manager)
-      employees_off = 0
-
-      employees.each do |employee|
-        holidays = EmployeeHoliday.where(employee_id: employee.id, date: date)
-        employees_off += holidays.count
-      end
-
-      if is_line_manager
-        MAX_LINE_MANAGERS_OFF - employees_off > 0
-      else
-        MAX_SUBORDINATES_OFF - employees_off > 0
-      end
     end
 end

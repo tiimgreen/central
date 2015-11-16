@@ -65,6 +65,28 @@
         }
       }
 
+.user-card--small {
+  border: 1px solid #ccc;
+  min-height: 200px;
+  max-width: 300px;
+  text-align: center;
+  padding: 30px;
+  margin: 0 auto 30px auto;
+}
+
+  .user-card--small__name {
+    margin-bottom: 10px;
+  }
+
+  .user-card--small__job-title {
+    display: block;
+  }
+
+  .user-card--small__photo {
+    border-radius: 1000px;
+    width: 80%;
+  }
+
 .new-employee-form {
 
 }
