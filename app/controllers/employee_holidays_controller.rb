@@ -4,6 +4,7 @@ class EmployeeHolidaysController < ApplicationController
 
   def index
     @holiday = EmployeeHoliday.new
+    @company_holidays = CompanyHoliday.all
   end
 
   def new

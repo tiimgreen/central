@@ -1,0 +1,11 @@
+- provide :title, 'New Company Holiday'
+
+.panel.panel-default.panel-log-in.log-in-panel
+  .panel-heading New Company Holiday
+  .panel-body
+    = form_for(@company_holiday) do |f|
+      .form-group
+        = f.label :date, class: 'control-label'
+        = f.date_field :date, class: 'form-control'
+
+      = f.submit 'Create Holiday', class: 'btn btn-default pull-right'

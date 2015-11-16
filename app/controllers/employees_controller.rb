@@ -22,7 +22,6 @@ class EmployeesController < ApplicationController
       flash[:success] = "Employee saved! Their password is 'password', please encourage them to change this!"
       redirect_to @employee
     else
-      flash[:danger] = 'Error saving employee'
       render :new
     end
   end

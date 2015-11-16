@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :employees,
     path: '',
     path_names: { sign_in: 'login', sign_out: 'logout' }
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
   resources :holiday_requests,  path: 'holiday-requests'
   get 'holiday-requests/:id/approve', to: 'holiday_requests#approve', as: :approve_holiday_request
   get 'holiday-requests/:id/decline', to: 'holiday_requests#decline', as: :decline_holiday_request
+
+  resources :company_holidays, path: 'company-holidays'
 
   # resources :times, only: %i(edit_check_in edit_check_out)
   patch 'times/:id/edit/check-in', to: 'times#edit_check_in', as: :edit_time_check_in
