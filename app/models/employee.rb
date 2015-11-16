@@ -192,6 +192,7 @@ class Employee < ActiveRecord::Base
   def can_mark_as_sick_day?(day)
     Date.today >= day &&
     !sick_day?(day) &&
+    !is_company_holiday?(day) &&
     !all_check_ins_on_date(day).any?
   end
 
