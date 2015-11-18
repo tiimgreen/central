@@ -59,7 +59,7 @@ class TimesController < ApplicationController
   def mark_sick_day
     sick_day = current_employee.sick_days.build(date: params[:date])
 
-    if current_employee.can_mark_as_sick_day?(params[:date])
+    if current_employee.can_mark_as_sick_day?(Date.parse(params[:date]))
       if sick_day.save
         flash[:success] = 'Successfully marked as sick day.'
       else
