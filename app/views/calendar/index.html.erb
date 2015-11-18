@@ -1,0 +1,35 @@
+<% provide :title, 'Calendar' %>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <table class="table calendar">
+      <thead>
+        <tr>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @dates.each do |row| %>
+
+          <tr class="calendar__week">
+
+            <% row.each do |date| %>
+              <% current_date = @start_of_month + (date - 1).days if !date.nil? %>
+
+              <td class="calendar__day <% if !date.nil? %>-current-month<% end %> <%= class_helper(current_date) if !date.nil? %>">
+                <%= date %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -24,6 +24,9 @@ Rails.application.routes.draw do
 
   resources :company_holidays, path: 'company-holidays'
 
+  get 'calendar', to: 'calendar#index', as: :calendar
+  get 'calendar/:date', to: 'calendar#month', as: :calendar_date
+
   # resources :times, only: %i(edit_check_in edit_check_out)
   patch 'times/:id/edit/check-in', to: 'times#edit_check_in', as: :edit_time_check_in
   patch 'times/:id/edit/check-out', to: 'times#edit_check_out', as: :edit_time_check_out

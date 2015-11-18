@@ -1,3 +1,26 @@
 // Place all the styles related to the Calendar controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.calendar {
+  table-layout: fixed;
+}
+
+  .calendar__day {
+    height: 125px;
+    width: auto;
+    border: 1px solid #ddd;
+    background: #eee;
+
+    &.-current-month {
+      background: #aaa;
+    }
+
+    &.-company-holiday {
+      background: #90c3d4;
+    }
+
+    &.-employee-holiday {
+      background: #36E379;
+    }
+  }
