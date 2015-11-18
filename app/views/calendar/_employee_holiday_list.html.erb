@@ -1,0 +1,11 @@
+<span class="glyphicon glyphicon-sunglasses"></span>
+
+<ul class="calendar__list -holiday">
+  <% EmployeeHoliday.on_date(date).each do |holiday| %>
+    <% if current_employee.is_line_manager %>
+      <li><%= link_to holiday.holiday_request.employee.full_name, holiday.holiday_request.employee %></li>
+    <% else %>
+      <li><%= holiday.holiday_request.employee.full_name %></li>
+    <% end %>
+  <% end %>
+</ul>

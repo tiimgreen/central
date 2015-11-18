@@ -21,9 +21,8 @@ class CalendarController < ApplicationController
 
     @dates = [[]]
 
-    blank_spaces_at_start_of_cal(@start_of_month.wday).times do
-      @dates[0] << nil
-    end
+    # Add blank dates before 1st of month
+    blank_spaces_at_start_of_cal(@start_of_month.wday).times { @dates[0] << nil }
 
     @days_in_month.times do |date_in_month|
       date_in_month = date_in_month + 1

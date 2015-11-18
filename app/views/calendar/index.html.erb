@@ -6,13 +6,13 @@
     <table class="table calendar">
       <thead>
         <tr>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-          <th>Saturday</th>
-          <th>Sunday</th>
+          <th class="calendar__day-title">Monday</th>
+          <th class="calendar__day-title">Tuesday</th>
+          <th class="calendar__day-title">Wednesday</th>
+          <th class="calendar__day-title">Thursday</th>
+          <th class="calendar__day-title">Friday</th>
+          <th class="calendar__day-title">Saturday</th>
+          <th class="calendar__day-title">Sunday</th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +25,7 @@
 
               <td class="calendar__day <% if !date.nil? %>-current-month<% end %> <%= class_helper(current_date) if !date.nil? %>">
                 <%= date %>
+                <%= render 'employee_holiday_list', date: current_date %>
               </td>
             <% end %>
           </tr>

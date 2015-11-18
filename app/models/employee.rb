@@ -221,7 +221,7 @@ class Employee < ActiveRecord::Base
   #
   # @returns (ActiveRecord::Relation)
   def unapproved_holiday_requests
-    holiday_requests.where(
+    self.holiday_requests.where(
       "authorised = ? AND authorised_by_id IS NOT NULL",
       false
     )
@@ -231,11 +231,11 @@ class Employee < ActiveRecord::Base
   #
   # @returns (ActiveRecord::Relation)
   def approved_holiday_requests
-    holiday_requests.where(authorised: true)
+    self.holiday_requests.where(authorised: true)
   end
 
   def pending_holiday_requests
-    holiday_requests.where(
+    self.holiday_requests.where(
       "authorised = ? AND authorised_by_id IS NULL",
       false
     )

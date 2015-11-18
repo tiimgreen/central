@@ -29,20 +29,18 @@ class EmployeeHolidaysController < ApplicationController
       )
 
       if request.save
+        flash[:success] = "Holiday request sent, you're line manager will respond soon."
+
         # If current_employee is a line manager, approve the request by default,
         # so long as there is no more than 2 other line managers away
         if current_employee.is_line_manager
-          request.update_attributes(authorised: true, authorised_by_id: current_employee.id)
-
+          request.approve_by(current_employee)
           flash[:success] = 'Holiday approved!'
-          redirect_to employee_holidays_path
         end
-
-        flash[:success] = "Holiday request sent, you're line manager will respond soon."
-        redirect_to employee_holidays_path
       else
         flash[:danger] = request.errors.full_messages.first
-        redirect_to employee_holidays_path
       end
+
+      redirect_to employee_holidays_path
     end
 end
