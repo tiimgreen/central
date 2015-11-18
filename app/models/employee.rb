@@ -116,8 +116,13 @@ class Employee < ActiveRecord::Base
         max_check_ins = all_check_ins_on_date(day).count
       end
 
-      if max_check_ins == 0
-        max_check_ins = 1 if sick_day?(day) || CompanyHoliday.is_holiday?(day)
+      if (
+        (max_check_ins == 0) &&
+          (sick_day?(day) ||
+          CompanyHoliday.is_holiday?(day) ||
+          is_on_holiday?(day))
+      )
+        max_check_ins = 1
       end
     end
 
@@ -201,6 +206,7 @@ class Employee < ActiveRecord::Base
     Date.today >= day &&
     !sick_day?(day) &&
     !is_company_holiday?(day) &&
+    !is_on_holiday?(day) &&
     !all_check_ins_on_date(day).any?
   end
 
@@ -215,7 +221,10 @@ class Employee < ActiveRecord::Base
   #
   # @returns (ActiveRecord::Relation)
   def unapproved_holiday_requests
-    holiday_requests.where(authorised: false)
+    holiday_requests.where(
+      "authorised = ? AND authorised_by_id IS NOT NULL",
+      false
+    )
   end
 
   # Returns all holiday requests that have been approved
@@ -225,11 +234,18 @@ class Employee < ActiveRecord::Base
     holiday_requests.where(authorised: true)
   end
 
+  def pending_holiday_requests
+    holiday_requests.where(
+      "authorised = ? AND authorised_by_id IS NULL",
+      false
+    )
+  end
+
   def pending_subordinate_holiday_requests
     requests = []
 
     subordinates.each do |subordinate|
-      if (pending_requests = subordinate.holiday_requests.where(authorised: false).to_a).count > 0
+      if (pending_requests = subordinate.pending_holiday_requests.to_a).count > 0
         requests << pending_requests
       end
     end
@@ -242,9 +258,21 @@ class Employee < ActiveRecord::Base
   end
 
   def is_allowed_date_off?(date)
+    # Methods found in HolidaysHelper
     !is_weekend?(date) &&
     !is_company_holiday?(date) &&
-    !will_be_understaffed?(self, date)
+    !will_be_understaffed?(self, date) &&
+    !is_on_holiday?(date)
+  end
+
+  def is_on_holiday?(date)
+    approved_holiday_requests.each do |request|
+      request.employee_holidays.each do |holiday|
+        return true if holiday.date == date
+      end
+    end
+
+    false
   end
 
   private

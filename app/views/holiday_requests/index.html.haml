@@ -3,7 +3,7 @@
 %h1 Holiday Requests
 
 - @subordinates.each do |subordinate|
-  - subordinate.unapproved_holiday_requests.each do |request|
+  - subordinate.pending_holiday_requests.each do |request|
     .panel.panel-default.panel-holiday-request
       .panel-heading.panel-holiday-request__heading
         = link_to subordinate.full_name, subordinate
@@ -13,11 +13,11 @@
           %li
             .panel-holiday-request__summary-box.primary
               .panel-holiday-request__summary-box--title.center From
-              .panel-holiday-request__summary-box--body= request.start_date.strftime("%a #{request.start_date.day.ordinalize} %B")
+              .panel-holiday-request__summary-box--body= request.date_from.strftime("%a #{request.date_from.day.ordinalize} %B")
           %li
             .panel-holiday-request__summary-box.primary
               .panel-holiday-request__summary-box--title.center To
-              .panel-holiday-request__summary-box--body= request.end_date.strftime("%a #{request.end_date.day.ordinalize} %B")
+              .panel-holiday-request__summary-box--body= request.date_to.strftime("%a #{request.date_to.day.ordinalize} %B")
           %li
             .panel-holiday-request__summary-box
               .panel-holiday-request__summary-box--title.center Total Days Requested

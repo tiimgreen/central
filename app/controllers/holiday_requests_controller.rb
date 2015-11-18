@@ -10,12 +10,10 @@ class HolidayRequestsController < ApplicationController
   end
 
   def approve
-    @request = HolidayRequest.find(params[:id])
+    @holiday_request = HolidayRequest.find(params[:id])
 
-    if @request.update_attributes(
-      authorised: true,
-      authorised_by_id: current_employee.id)
-      flash[:success] = "You have approved #{@request.employee.full_name}'s holiday!"
+    if @holiday_request.approve_by(current_employee)
+      flash[:success] = "You have approved #{@holiday_request.employee.full_name}'s holiday!"
     else
       flash[:success] = "Error approving holiday."
     end
@@ -24,6 +22,14 @@ class HolidayRequestsController < ApplicationController
   end
 
   def decline
-    @request = HolidayRequest.find(params[:id])
+    @holiday_request = HolidayRequest.find(params[:id])
+
+    if @holiday_request.decline_by(current_employee)
+      flash[:success] = "You have declined #{@holiday_request.employee.full_name}'s holiday."
+    else
+      flash[:success] = "Error declining holiday."
+    end
+
+    redirect_to request.referrer
   end
 end

@@ -12,7 +12,7 @@ module HolidaysHelper
   end
 
   def is_weekend?(date)
-    !date.saturday? && !date.sunday?
+    date.saturday? || date.sunday?
   end
 
   def is_company_holiday?(date)
@@ -32,9 +32,9 @@ module HolidaysHelper
     end
 
     if employee.is_line_manager
-      return max_line_managers_off - employees_off > 0
+      return max_line_managers_off - employees_off <= 0
     else
-      return max_subordinates_off - employees_off > 0
+      return max_subordinates_off - employees_off <= 0
     end
   end
 end

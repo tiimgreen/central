@@ -22,6 +22,21 @@
           = f.submit 'Request', class: 'btn btn-default btn-holiday-request pull-right'
 
     %h3 Your Holidays
+    - current_employee.pending_holiday_requests.each do |holiday|
+      .panel.panel-warning
+        .panel-heading.center Pending
+        .panel-body
+          .row
+            .col-md-4.holiday-panel__section
+              %strong From
+              .holiday-panel__section--value= holiday.date_from.strftime("%a #{holiday.date_from.day.ordinalize} %B")
+            .col-md-4.holiday-panel__section
+              %strong To
+              .holiday-panel__section--value= holiday.date_to.strftime("%a #{holiday.date_to.day.ordinalize} %B")
+            .col-md-4.holiday-panel__section
+              %strong Days Used
+              .holiday-panel__section--value= holiday.total_days_requested
+
     - current_employee.approved_holiday_requests.each do |holiday|
       .panel.panel-success
         .panel-heading.center
@@ -30,25 +45,10 @@
           .row
             .col-md-4.holiday-panel__section
               %strong From
-              .holiday-panel__section--value= holiday.start_date.strftime("%a #{holiday.start_date.day.ordinalize} %B")
+              .holiday-panel__section--value= holiday.date_from.strftime("%a #{holiday.date_from.day.ordinalize} %B")
             .col-md-4.holiday-panel__section
               %strong To
-              .holiday-panel__section--value= holiday.end_date.strftime("%a #{holiday.end_date.day.ordinalize} %B")
-            .col-md-4.holiday-panel__section
-              %strong Days Used
-              .holiday-panel__section--value= holiday.total_days_requested
-
-    - current_employee.unapproved_holiday_requests.each do |holiday|
-      .panel.panel-default
-        .panel-heading Pending
-        .panel-body
-          .row
-            .col-md-4.holiday-panel__section
-              %strong From
-              .holiday-panel__section--value= holiday.start_date.strftime("%a #{holiday.start_date.day.ordinalize} %B")
-            .col-md-4.holiday-panel__section
-              %strong To
-              .holiday-panel__section--value= holiday.end_date.strftime("%a #{holiday.end_date.day.ordinalize} %B")
+              .holiday-panel__section--value= holiday.date_to.strftime("%a #{holiday.date_to.day.ordinalize} %B")
             .col-md-4.holiday-panel__section
               %strong Days Used
               .holiday-panel__section--value= holiday.total_days_requested
