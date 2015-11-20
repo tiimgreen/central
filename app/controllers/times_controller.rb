@@ -15,9 +15,6 @@ class TimesController < ApplicationController
     render :index
   end
 
-  def check_in_out_times
-  end
-
   def edit_check_in
     check_in_date = Date.new(
       @check_in.check_in_time.year,
@@ -111,9 +108,9 @@ class TimesController < ApplicationController
     end
 
     def validate_is_start_of_week
-      start_of_week = Date.parse(params[:start_of_week]).at_beginning_of_week
+      date = Date.parse(params[:start_of_week])
 
-      unless Date.parse(params[:start_of_week]) == start_of_week
+      unless date == date.at_beginning_of_week
         redirect_to week_path(start_of_week)
       end
     end

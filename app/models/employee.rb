@@ -118,7 +118,7 @@ class Employee < ActiveRecord::Base
 
       if (
         (max_check_ins == 0) &&
-          (sick_day?(day) ||
+          (is_sick_day?(day) ||
           CompanyHoliday.is_holiday?(day) ||
           is_on_holiday?(day))
       )
@@ -172,6 +172,12 @@ class Employee < ActiveRecord::Base
     start_date <= start_of_current_week - 3.days
   end
 
+  def can_check_in?(date)
+    !is_on_holiday?(date) &&
+    !is_sick_day?(date) &&
+    !is_company_holiday?(date)
+  end
+
   # Calculates the amount of holiday days per year the employee gets
   #
   # @returns (Integer)
@@ -204,7 +210,7 @@ class Employee < ActiveRecord::Base
   # @returns (Boolean)
   def can_mark_as_sick_day?(day)
     Date.today >= day &&
-    !sick_day?(day) &&
+    !is_sick_day?(day) &&
     !is_company_holiday?(day) &&
     !is_on_holiday?(day) &&
     !all_check_ins_on_date(day).any?
@@ -213,7 +219,7 @@ class Employee < ActiveRecord::Base
   # Is the given day a sick day?
   #
   # @returns (Boolean)
-  def sick_day?(date)
+  def is_sick_day?(date)
     sick_days.where(date: date).any?
   end
 

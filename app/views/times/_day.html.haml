@@ -1,4 +1,4 @@
-- if current_employee.sick_day?(day)
+- if current_employee.is_sick_day?(day)
   - if n == 0
     %td.table-check-in-times__td.sick-day.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
       %strong Sick Day

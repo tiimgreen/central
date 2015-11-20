@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  before_action :authenticate_employee!
   before_action :authenticate_line_manager!
 
   def index

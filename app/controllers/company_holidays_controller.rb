@@ -1,4 +1,5 @@
 class CompanyHolidaysController < ApplicationController
+  before_action :authenticate_employee!
 
   def index
     @company_holidays = CompanyHoliday.all.order(:date)

@@ -1,6 +1,8 @@
 - if current_employee.checked_in?
   = form_for(CheckIn.new, url: check_out_path) do |f|
     = f.submit 'Check Out', class: 'btn btn-default btn-check-out'
+- elsif !current_employee.can_check_in?(Date.today)
+  = link_to 'Check In', '#', class: 'btn btn-disabled btn-check-out', disabled: 'disabled'
 - else
   = form_for(CheckIn.new, url: check_in_path) do |f|
     = f.submit 'Check In', class: 'btn btn-primary btn-check-in'
