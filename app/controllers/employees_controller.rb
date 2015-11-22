@@ -53,6 +53,7 @@ class EmployeesController < ApplicationController
         :address_line_1, :address_line_2, :post_code, :contracted_hours,
         :line_manager_id, :start_date, :job_title, :line_manager,
         :emergency_contact_name, :emergency_contact_relation,
-        :emergency_contact_phone_number, :emergency_contact_phone_number_2)
+        :emergency_contact_phone_number, :emergency_contact_phone_number_2,
+        :date_of_birth)
     end
 end

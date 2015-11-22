@@ -17,7 +17,7 @@ class Employee < ActiveRecord::Base
   validates :last_name,                      presence: true
   validates :job_title,                      presence: true
   validates :start_date,                     presence: true
-  validates :is_line_manager,                presence: true
+  validates :date_of_birth,                  presence: true
   validates :contracted_hours,               presence: true
   validates :emergency_contact_name,         presence: true
   validates :emergency_contact_relation,     presence: true

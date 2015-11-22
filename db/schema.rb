@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116193757) do
+ActiveRecord::Schema.define(version: 20151122212542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20151116193757) do
     t.string   "emergency_contact_phone_number"
     t.string   "emergency_contact_phone_number_2"
     t.integer  "line_manager_id"
+    t.date     "date_of_birth"
   end
 
   add_index "employees", ["email"], name: "index_employees_on_email", unique: true, using: :btree

@@ -20,6 +20,9 @@
             .form-group.col-md-6
               = f.label :last_name, 'Last Name', class: 'control-label'
               = f.text_field :last_name, class: 'form-control'
+          .form-group
+            = f.label :date_of_birth, 'Date of Birth', class: 'control-label'
+            = f.date_field :date_of_birth, class: 'form-control'
         .col-md-6
           .form-group
             = f.label :address_line_1, 'Address Line 1', class: 'control-label'

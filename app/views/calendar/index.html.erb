@@ -32,5 +32,26 @@
         <% end %>
       </tbody>
     </table>
+
+    <div class="calendar__key">
+      <ul class="calendar__key--list">
+        <li class="calendar__key--list-item">
+          <div class="calendar__key--list-item--data -key -square"></div>
+          <div class="calendar__key--list-item--data -value">Sick Day</div>
+        </li>
+        <li class="calendar__key--list-item">
+          <div class="calendar__key--list-item--data -key -square"></div>
+          <div class="calendar__key--list-item--data -value">Company Holiday</div>
+        </li>
+        <li class="calendar__key--list-item">
+          <div class="calendar__key--list-item--data -key"><%= image_tag('icons/plane.png', class: '-employee-holiday') %></div>
+          <div class="calendar__key--list-item--data -value">Employee Holiday</div>
+        </li>
+        <li class="calendar__key--list-item">
+          <div class="calendar__key--list-item--data -key"><%= image_tag('icons/cake.png', class: '-birthday') %></div>
+          <div class="calendar__key--list-item--data -value">Employee Birthday</div>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

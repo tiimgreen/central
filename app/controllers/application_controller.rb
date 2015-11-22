@@ -12,14 +12,16 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(:email, :first_name, :last_name, :address_line_1,
-        :address_line_2, :post_code, :job_title, :password, :password_confirmation)
+        :address_line_2, :post_code, :job_title, :password,
+        :password_confirmation, :date_of_birth)
     end
 
     devise_parameter_sanitizer.for(:account_update) do |u|
       u.permit(:email, :first_name, :last_name, :address_line_1,
         :address_line_2, :post_code, :job_title, :password, :password_confirmation,
         :current_password, :emergency_contact_name, :emergency_contact_relation,
-        :emergency_contact_phone_number, :emergency_contact_phone_number_2)
+        :emergency_contact_phone_number, :emergency_contact_phone_number_2,
+        :date_of_birth)
     end
   end
 

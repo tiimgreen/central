@@ -1,4 +1,4 @@
-<div class="panel panel-default panel-log-in">
+<div class="panel panel-default panel-log-in panel-thin">
   <div class="panel-heading">Edit Details</div>
   <div class="panel-body">
 
@@ -21,6 +21,11 @@
           <%= f.label :last_name, 'Last Name', class: 'control-label' %>
           <%= f.text_field :last_name, class: 'form-control' %>
         </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :date_of_birth, 'Date of Birth', class: 'control-label' %>
+        <%= f.date_field :date_of_birth, class: 'form-control' %>
       </div>
 
       <div class="form-group">

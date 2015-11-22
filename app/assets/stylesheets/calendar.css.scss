@@ -5,9 +5,12 @@
 .calendar {
   table-layout: fixed;
 }
+  .calendar thead {
+    border: 1px solid #000;
+  }
 
   .calendar__day-title {
-    border-bottom: 1px solid #000;
+    border: 1px solid #000;
   }
 
   .calendar__day-title {
@@ -48,3 +51,39 @@
       background-size: 18px 18px;
     }
   }
+
+.calendar__key {
+
+}
+
+  .calendar__key--list {
+    list-style: none;
+  }
+
+    .calendar__key--list-item {
+      display: inline-block;
+      padding: 0 20px;
+    }
+
+      .calendar__key--list-item--data {
+        display: inline-block;
+
+        &.-key {
+          padding-right: 5px;
+        }
+
+        &.-square {
+          width: 20px;
+          height: 20px;
+          backkground: red;
+          display: block;
+        }
+
+        img.-employee-holiday {
+          width: 20px;
+        }
+
+        img.-birthday {
+          width: 20px;
+        }
+      }
