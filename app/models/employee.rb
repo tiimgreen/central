@@ -281,6 +281,11 @@ class Employee < ActiveRecord::Base
     false
   end
 
+  def is_birthday?(date)
+    date_of_birth.day == date.day &&
+    date_of_birth.month == date.month
+  end
+
   private
 
     def format_minutes(minutes)

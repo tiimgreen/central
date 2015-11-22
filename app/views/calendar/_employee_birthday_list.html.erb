@@ -1,0 +1,11 @@
+<ul class="calendar__list -birthday">
+  <% Employee.all.each do |employee| %>
+    <% if employee.is_birthday?(date) %>
+      <% if current_employee.is_line_manager %>
+        <li><%= link_to employee.full_name, employee %></li>
+      <% else %>
+        <li><%= employee.full_name %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+</ul>
