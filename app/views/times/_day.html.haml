@@ -1,14 +1,14 @@
 - if current_employee.is_sick_day?(day)
   - if n == 0
-    %td.table-check-in-times__td.sick-day.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
+    %td.table-check-in-times__td.-sick-day.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
       %strong Sick Day
 - elsif CompanyHoliday.is_holiday?(day)
   - if n == 0
-    %td.table-check-in-times__td.company-holiday.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
+    %td.table-check-in-times__td.-company-holiday.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
       %strong Company Holiday
 - elsif current_employee.is_on_holiday?(day)
   - if n == 0
-    %td.table-check-in-times__td.employee-holiday.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
+    %td.table-check-in-times__td.-employee-holiday.center{ rowspan: current_employee.max_check_ins_on_week_starting(@start_of_week) }
       %strong You are on Holiday!
 - else
   %td.table-check-in-times__td

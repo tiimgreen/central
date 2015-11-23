@@ -23,11 +23,11 @@
             <% row.each do |date| %>
               <% current_date = @start_of_month + (date - 1).days unless date.nil? %>
 
-              <td class="calendar__day <% if !date.nil? %>-current-month<% end %> <%= class_helper(current_date) if !date.nil? %>">
+              <td class="calendar__day <% if !date.nil? %>-current-month<% end %> <%= calendar_class_helper(current_date) if !date.nil? %>">
                 <% unless date.nil? %>
                   <%= date %>
-                  <%= render 'employee_holiday_list', date: current_date %>
-                  <%= render 'employee_birthday_list', date: current_date %>
+                  <%= render 'employee_holiday_list', date: current_date if any_employee_holidays_on_date?(current_date) %>
+                  <%= render 'employee_birthday_list', date: current_date if any_birthdays_on_date?(current_date) %>
                 <% end %>
               </td>
             <% end %>

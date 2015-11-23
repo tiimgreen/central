@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$sick_day_colour: #e74c3c;
+$employee_holiday_colour: #2ecc71;
+$company_holiday_colour: #3498db;
+
 .calendar {
   table-layout: fixed;
 }
@@ -27,15 +31,15 @@
     }
 
     &.-company-holiday {
-      background: #90c3d4;
+      background: $company_holiday_colour;
     }
 
     &.-employee-holiday {
-      background: #36E379;
+      background: $employee_holiday_colour;
     }
 
     &.-sick-day {
-      background-color: #ffc4c4;
+      background-color: $sick_day_colour;
     }
   }
 
@@ -57,8 +61,8 @@
 
     &.-birthday {
       background: image-url('icons/cake.png') no-repeat;
-      background-position: 0 3px;
-      background-size: 18px 18px;
+      background-position: 3px 1px;
+      background-size: 16px 16px;
     }
   }
 

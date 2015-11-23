@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$sick_day_colour: #e74c3c;
+$employee_holiday_colour: #2ecc71;
+$company_holiday_colour: #3498db;
+
 .table-check-in-times {
 
 }
@@ -13,16 +17,16 @@
     height: 35px;
     width: 20%;
 
-    &.sick-day {
-      background-color: #ffc4c4;
+    &.-sick-day {
+      background-color: $sick_day_colour;
     }
 
-    &.company-holiday {
-      background-color: #90c3d4;
+    &.-company-holiday {
+      background-color: $company_holiday_colour;
     }
 
-    &.employee-holiday {
-      background-color: #36E379;
+    &.-employee-holiday {
+      background-color: $employee_holiday_colour;
     }
   }
 
