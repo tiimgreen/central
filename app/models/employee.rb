@@ -70,7 +70,7 @@ class Employee < ActiveRecord::Base
   # @param (Date) - the date the user was checked in
   # @returns (Integer) - total minutes checked in on date
   def minutes_checked_in_on_date(date)
-    total_hours = total_minutes = 0
+    total_minutes = 0
 
     all_check_ins_on_date(date).each { |check_in| total_minutes += check_in.time_checked_in }
 
@@ -199,7 +199,9 @@ class Employee < ActiveRecord::Base
     count = 0
 
     approved_holiday_requests.each do |request|
-      count += request.employee_holidays.count
+      request.employee_holidays.each do |holiday|
+        count += 1 if holiday.date.year == Date.today.year
+      end
     end
 
     allocated_holiday_days - count
