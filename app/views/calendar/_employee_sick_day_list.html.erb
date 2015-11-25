@@ -1,0 +1,9 @@
+<ul class="calendar__list -sick-day">
+  <% SickDay.on_date(date).each do |sick_day| %>
+    <% if current_employee.is_line_manager %>
+      <li><%= link_to sick_day.employee.full_name, sick_day.employee %></li>
+    <% else %>
+      <li><%= sick_day.employee.full_name %></li>
+    <% end %>
+  <% end %>
+</ul>

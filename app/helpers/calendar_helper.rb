@@ -26,4 +26,10 @@ module CalendarHelper
 
     false
   end
+
+  def any_sick_days_on_date?(date)
+    Employee.all.each { |employee| return true if employee.is_sick_day?(date) }
+
+    false
+  end
 end

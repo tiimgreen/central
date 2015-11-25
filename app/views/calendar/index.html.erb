@@ -62,6 +62,7 @@
                   <%= date %>
                   <%= render 'employee_holiday_list', date: current_date if any_employee_holidays_on_date?(current_date) %>
                   <%= render 'employee_birthday_list', date: current_date if any_birthdays_on_date?(current_date) %>
+                  <%= render 'employee_sick_day_list', date: current_date if any_sick_days_on_date?(current_date) %>
                 <% end %>
               </td>
             <% end %>

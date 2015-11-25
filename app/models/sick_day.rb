@@ -8,4 +8,8 @@ class SickDay < ActiveRecord::Base
       errors.add(:base, 'You were checked in on that day.')
     end
   end
+
+  def self.on_date(date)
+    where(date: date)
+  end
 end
