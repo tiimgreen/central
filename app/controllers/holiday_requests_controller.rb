@@ -1,12 +1,13 @@
 class HolidayRequestsController < ApplicationController
   before_action :authenticate_employee!
-  before_action :authenticate_line_manager!
+  before_action :authenticate_line_manager!, except: :show
 
   def index
     @subordinates = current_employee.subordinates
   end
 
   def show
+    @holiday_request = HolidayRequest.find(params[:id])
   end
 
   def approve

@@ -23,12 +23,16 @@ module HolidaysHelper
     max_line_managers_off = 2
     max_subordinates_off = 3
 
-    other_employees = Employee.where(is_line_manager: employee.is_line_manager)
+    colleagues = Employee.where(is_line_manager: employee.is_line_manager)
     employees_off = 0
 
-    other_employees.each do |other_employee|
-      holidays = EmployeeHoliday.where(employee_id: other_employee.id, date: date)
-      employees_off += holidays.count
+    colleagues.each do |colleague|
+      colleague.holiday_requests.each do |request|
+        holidays = request.employee_holidays.where(date: date)
+        employees_off += holidays.count
+      end
+      # holidays = EmployeeHoliday.where(employee_id: colleague.id, date: date)
+      # employees_off += holidays.count
     end
 
     if employee.is_line_manager

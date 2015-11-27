@@ -1,0 +1,17 @@
+.panel.panel-default.panel-thin
+  .panel-heading Holiday Request
+  .panel-body
+    %form.form-horizontal
+      .form-group
+        %label.col-sm-3.control-label Start Date
+        .col-sm-9
+          %p.form-control-static= @holiday_request.date_from.strftime("%a #{@holiday_request.date_from.day.ordinalize} %B %Y")
+
+      .form-group
+        %label.col-sm-3.control-label End Date
+        .col-sm-9
+          %p.form-control-static= @holiday_request.date_to.strftime("%a #{@holiday_request.date_to.day.ordinalize} %B %Y")
+      .form-group
+        %label.col-sm-3.control-label Authorised by
+        .col-sm-9
+          %p.form-control-static= @holiday_request.authoriser.full_name

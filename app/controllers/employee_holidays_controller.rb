@@ -17,7 +17,11 @@ class EmployeeHolidaysController < ApplicationController
 
     if current_employee.has_enough_holiday_left?(date_range)
       create_holiday_requests(parse_date_range(date_range))
+    else
+      flash[:danger] = 'You do not have enough holidays to do that.'
     end
+
+    redirect_to employee_holidays_path
   end
 
   private
@@ -40,7 +44,5 @@ class EmployeeHolidaysController < ApplicationController
       else
         flash[:danger] = request.errors.full_messages.first
       end
-
-      redirect_to employee_holidays_path
     end
 end

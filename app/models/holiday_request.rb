@@ -3,12 +3,11 @@ class HolidayRequest < ActiveRecord::Base
 
   has_many :employee_holidays, dependent: :destroy
   belongs_to :employee
+  belongs_to :authoriser, foreign_key: :authorised_by_id, class_name: :Employee
 
   validate :all_days_are_valid
 
   def all_days_are_valid
-    valid = true
-
     (date_from..date_to).to_a.each do |date|
       if will_be_understaffed?(employee, date)
         errors.add(:base, "There are too many employees off on #{date.strftime("%a #{date.day.ordinalize} %B")}, please chose a range without this date.")
