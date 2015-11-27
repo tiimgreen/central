@@ -2,19 +2,22 @@ $brand_default: #a537fd;
 $brand_primary: #00ebbe;
 
 $sick_day_colour: #e74c3c;
-$employee_holiday_colour: #2ecc71;
-$company_holiday_colour: #3498db;
+$employee_holiday_colour: darken($brand_primary, 5%);
+$company_holiday_colour: #FFB330;
+$birthday_colour: $brand_default;
+
+$calendar_border_colour: #969696;
+$calendar_nav_colour: #575757;
 
 .calendar {
   table-layout: fixed;
 }
-  .calendar thead {
-    border: 1px solid #000;
-    border-top: 0;
+  .table > thead > tr > th {
+    border: 1px solid $calendar_border_colour;
   }
 
   .calendar__day-title {
-    border: 1px solid #000;
+    border: 1px solid $calendar_border_colour;
     text-align: center;
   }
 
@@ -24,23 +27,11 @@ $company_holiday_colour: #3498db;
   .calendar__day {
     height: 125px;
     width: auto;
-    border: 1px solid #000;
+    border: 1px solid $calendar_border_colour;
     background: lighten(#ddd, 8%);
 
     &.-current-month {
       background: lighten(#eee, 8%);
-    }
-
-    &.-company-holiday {
-
-    }
-
-    &.-employee-holiday {
-
-    }
-
-    &.-sick-day {
-
     }
   }
 
@@ -50,6 +41,7 @@ $company_holiday_colour: #3498db;
     padding-left: 25px;
     margin-left: 20px;
     margin-bottom: 0;
+    font-size: 12px;
 
     &:first-child {
       margin-top: -20px;
@@ -69,7 +61,7 @@ $company_holiday_colour: #3498db;
     }
 
     &.-employee-holiday {
-      color: $brand_primary;
+      color: $employee_holiday_colour;
 
       li:before {
         font-size: 13px;
@@ -78,8 +70,18 @@ $company_holiday_colour: #3498db;
       }
     }
 
+    &.-company-holiday {
+      color: $company_holiday_colour;
+
+      li:before {
+        font-size: 13px;
+        content: "\f185";
+        margin-right: 10px;
+      }
+    }
+
     &.-birthday {
-      color: $brand_default;
+      color: $birthday_colour;
 
       li:before {
         content: "\f1fd";
@@ -109,23 +111,51 @@ $company_holiday_colour: #3498db;
     .calendar__key--list-item {
       display: inline-block;
       margin: 0 20px;
-      padding: 10px 15px;
       border-radius: 30px;
 
+      &:before {
+        font-family: FontAwesome;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 11px;
+        display: inline-block;
+        text-decoration: inherit;
+      }
+
       &.-sick-day {
-        background: $sick_day_colour;
+        color: $sick_day_colour;
+
+        &:before {
+          content: "\f0f9";
+          margin-right: 10px;
+        }
       }
 
       &.-company-holiday {
-        background: $company_holiday_colour;
+        color: $company_holiday_colour;
+
+        &:before {
+          content: "\f185";
+          margin: 0 7px 2px;
+        }
       }
 
       &.-employee-holiday {
-        background: $employee_holiday_colour;
+        color: $employee_holiday_colour;
+
+        &:before {
+          content: "\f072";
+          margin-right: 10px;
+        }
       }
 
-      &.-general-key {
-        border: 2px solid #000;
+      &.-birthday {
+        color: $birthday_colour;
+
+        &:before {
+          content: "\f1fd";
+          margin-right: 10px;
+        }
       }
     }
 
@@ -148,7 +178,7 @@ $company_holiday_colour: #3498db;
 .calendar__navigator {
   width: 100%;
   height: 40px;
-  background: #2B2B2B;
+  background: $calendar_nav_colour;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
@@ -159,23 +189,23 @@ $company_holiday_colour: #3498db;
   }
 
   .calendar__navigator--link-container {
-    background: $brand_primary;
     height: 100%;
     width: 50px;
-
-    &.-left {
-      border-top-left-radius: 5px;
-    }
-
-    &.-right {
-      border-top-right-radius: 5px;
-    }
   }
 
     .calendar__navigator--link {
       color: #fff;
       font-size: 24px;
-      padding: 20px 15px;
+      padding: 6px 13px;
+      background: $calendar_nav_colour;
+
+      &.-left {
+        border-top-left-radius: 5px;
+      }
+
+      &.-right {
+        border-top-right-radius: 5px;
+      }
 
       span {
         margin-top: 5px;
@@ -185,5 +215,6 @@ $company_holiday_colour: #3498db;
       &:active,
       &:focus {
         color: #eee;
+        background: darken($calendar_nav_colour, 5%);
       }
     }

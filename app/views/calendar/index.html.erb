@@ -6,28 +6,21 @@
     <div class="calendar__key">
       <ul class="calendar__key--list">
         <li class="calendar__key--list-item -sick-day">Sick Day</li>
-        <li class="calendar__key--list-item -employee-holiday">Your Holiday</li>
+        <li class="calendar__key--list-item -employee-holiday">Employee Holiday</li>
         <li class="calendar__key--list-item -company-holiday">Company Holiday</li>
-        <li class="calendar__key--list-item -general-key">
-          <div class="calendar__key--list-item--data -key"><%= image_tag('icons/plane.png', class: '-employee-holiday') %></div>
-          <div class="calendar__key--list-item--data -value">Employee Holiday</div>
-        </li>
-        <li class="calendar__key--list-item -general-key">
-          <div class="calendar__key--list-item--data"><%= image_tag('icons/cake.png', class: '-birthday') %></div>
-          <div class="calendar__key--list-item--data -value">Employee Birthday</div>
-        </li>
+        <li class="calendar__key--list-item -birthday">Employee Birthday</li>
       </ul>
     </div>
 
     <div class="calendar__navigator">
-      <div class="pull-right calendar__navigator--link-container -right">
-        <%= link_to calendar_date_path(@start_of_month + 1.month), class: 'calendar__navigator--link' do %>
+      <div class="pull-right calendar__navigator--link-container">
+        <%= link_to calendar_date_path(@start_of_month + 1.month), class: 'calendar__navigator--link -right' do %>
           <span class="glyphicon glyphicon-arrow-right"></span>
         <% end %>
       </div>
 
-      <div class="calendar__navigator--link-container -left">
-        <%= link_to calendar_date_path(@start_of_month - 1.month), class: 'calendar__navigator--link' do %>
+      <div class="calendar__navigator--link-container">
+        <%= link_to calendar_date_path(@start_of_month - 1.month), class: 'calendar__navigator--link -left' do %>
           <span class="glyphicon glyphicon-arrow-left"></span>
         <% end %>
       </div>
@@ -60,6 +53,7 @@
               <td class="calendar__day <% if !date.nil? %>-current-month<% end %> <%= calendar_class_helper(current_date) if !date.nil? %>">
                 <% unless date.nil? %>
                   <%= date %>
+                  <%= render 'company_holiday_list', date: current_date if CompanyHoliday.is_holiday?(current_date) %>
                   <%= render 'employee_holiday_list', date: current_date if any_employee_holidays_on_date?(current_date) %>
                   <%= render 'employee_birthday_list', date: current_date if any_birthdays_on_date?(current_date) %>
                   <%= render 'employee_sick_day_list', date: current_date if any_sick_days_on_date?(current_date) %>
