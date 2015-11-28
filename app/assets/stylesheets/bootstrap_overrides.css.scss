@@ -17,10 +17,7 @@ $brand_primary: #00ebbe;
       color: #fff;
       background-color: darken($brand_primary, 5%);
       border-bottom-color: darken($brand_primary, 15%);
-    }
-
-    &:active {
-      border: 0;
+      outline:0;
     }
   }
 
@@ -35,10 +32,7 @@ $brand_primary: #00ebbe;
       color: #fff;
       background-color: darken($brand_default, 5%);
       border-bottom-color: darken($brand_default, 15%);
-    }
-
-    &:active {
-      border: 0;
+      outline: 0;
     }
   }
 
