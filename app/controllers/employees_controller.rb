@@ -54,6 +54,6 @@ class EmployeesController < ApplicationController
         :line_manager_id, :start_date, :job_title, :line_manager,
         :emergency_contact_name, :emergency_contact_relation,
         :emergency_contact_phone_number, :emergency_contact_phone_number_2,
-        :date_of_birth)
+        :date_of_birth, :avatar)
     end
 end

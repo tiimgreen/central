@@ -1,6 +1,8 @@
 class Employee < ActiveRecord::Base
   include HolidaysHelper
 
+  IMAGE_MISSING_PATH = 'missing.jpg'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -22,6 +24,10 @@ class Employee < ActiveRecord::Base
   validates :emergency_contact_name,         presence: true
   validates :emergency_contact_relation,     presence: true
   validates :emergency_contact_phone_number, presence: true
+
+  has_attached_file :avatar, default_url: IMAGE_MISSING_PATH
+
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   # Build in rails method that specifies how the parameter for the Model will
   # appear in URLs e.g.:
@@ -286,6 +292,10 @@ class Employee < ActiveRecord::Base
   def is_birthday?(date)
     date_of_birth.day == date.day &&
     date_of_birth.month == date.month
+  end
+
+  def has_avatar?
+    avatar.url != IMAGE_MISSING_PATH
   end
 
   private

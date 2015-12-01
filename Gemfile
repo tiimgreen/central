@@ -7,6 +7,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'haml', '~> 4.0.6'
 gem 'devise', '~> 3.5', '>= 3.5.2'
+gem 'paperclip', '~> 4.3', '>= 4.3.2'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'

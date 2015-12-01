@@ -25,7 +25,8 @@
           %li= link_to 'Calendar', calendar_path
 
           %li.dropdown
-            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %a.header__dropdown.dropdown-toggle{ aria: { expanded: :false, haspopup: :true }, data: { toggle: :dropdown }, href: '#', role: :button }
+              = image_tag current_employee.avatar.url, class: 'header__avatar'
               = current_employee.full_name
               %span.caret
             %ul.dropdown-menu

@@ -1,5 +1,5 @@
 .user-card--small
-  = image_tag('profile-photo.jpg', class: 'user-card--small__photo')
+  = image_tag(current_employee.avatar.url, class: 'user-card--small__photo')
 
   %h3.user-card--small__name
     = current_employee.full_name

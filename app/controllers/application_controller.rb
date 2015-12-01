@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
         :address_line_2, :post_code, :job_title, :password, :password_confirmation,
         :current_password, :emergency_contact_name, :emergency_contact_relation,
         :emergency_contact_phone_number, :emergency_contact_phone_number_2,
-        :date_of_birth)
+        :date_of_birth, :avatar)
     end
   end
 
