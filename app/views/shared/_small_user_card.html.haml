@@ -1,7 +1,11 @@
 .user-card--small
-  = image_tag(current_employee.avatar.url, class: 'user-card--small__photo')
+  = image_tag(employee.avatar.url, class: 'user-card--small__photo')
 
   %h3.user-card--small__name
-    = current_employee.full_name
+    = employee.full_name
     %small.user-card--small__job-title
-      = current_employee.job_title
+      - if employee.job_title.downcase == 'director'
+        %br
+        %span.label.label-default.user-card__director-label DIRECTOR
+      - else
+        %small.user-card__job-title= employee.job_title

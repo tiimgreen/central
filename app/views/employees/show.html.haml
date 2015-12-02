@@ -4,6 +4,8 @@
   .pull-right
     = link_to 'Deactivate Employee', '#', class: 'btn btn-danger btn-deactivate-employee', data: { toggle: 'modal', target: '#deactivate_employee_modal' }
 
-%h1= @employee.full_name
-
 = render 'employees/deactivate_employee_modal'
+
+.row
+  .col-md-3
+    = render 'shared/small_user_card', employee: current_employee

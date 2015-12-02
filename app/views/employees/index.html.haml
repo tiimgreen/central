@@ -10,10 +10,11 @@
     .panel.panel-default.user-card
 
       .user-card__side-panel
-        = image_tag employee.avatar.url, class: 'user-card__photo'
+        = link_to employee do
+          = image_tag employee.avatar.url, class: 'user-card__photo'
         %h4.user-card__name
           %span.user-card__full_name= link_to employee.full_name, employee
-          - if employee.is_line_manager
+          - if employee.job_title.downcase == 'director'
             %br
             %span.label.label-default.user-card__director-label DIRECTOR
           - else
