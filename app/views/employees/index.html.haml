@@ -10,7 +10,7 @@
     .panel.panel-default.user-card
 
       .user-card__side-panel
-        = image_tag('profile-photo.jpg', class: 'user-card__photo')
+        = image_tag employee.avatar.url, class: 'user-card__photo'
         %h4.user-card__name
           %span.user-card__full_name= link_to employee.full_name, employee
           - if employee.is_line_manager

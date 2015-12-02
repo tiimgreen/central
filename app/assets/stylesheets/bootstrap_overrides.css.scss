@@ -4,6 +4,10 @@ $brand_primary: #00ebbe;
 .btn {
   padding: 10px 20px;
   border-radius: 4px;
+
+  &:active {
+    border-bottom: 0;
+  }
 }
 
   .btn-primary {
@@ -17,7 +21,7 @@ $brand_primary: #00ebbe;
       color: #fff;
       background-color: darken($brand_primary, 5%);
       border-bottom-color: darken($brand_primary, 15%);
-      outline:0;
+      outline: 0;
     }
   }
 
