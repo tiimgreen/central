@@ -9,7 +9,8 @@
         = form_for(@employee, url: deactivate_employee_path) do |f|
           .form-group
             = f.label :end_date, 'Date of Leaving'
-            = f.text_field :end_date, class: 'form-control', id: 'datepicker'
-      .modal-footer
-        %button.btn.btn-default{ 'data-dismiss' => 'modal', type: :button } Close
-        %button.btn.btn-primary{ type: :button } Save changes
+            = f.text_field :end_date, class: 'form-control employee-termination-date', id: 'datepicker'
+
+          .form-group
+            %button.btn.btn-default{ 'data-dismiss' => 'modal', type: :button } Close
+            = f.submit 'Save changes', class: 'btn btn-primary pull-right'

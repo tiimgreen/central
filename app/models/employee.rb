@@ -298,6 +298,20 @@ class Employee < ActiveRecord::Base
     avatar.url != IMAGE_MISSING_PATH
   end
 
+  def check_in_out_times(week)
+    check_in_out_times = [] # array used to populate time table
+
+    week.each_with_index do |day, i|
+      check_in_out_times[i] = []
+
+      all_check_ins_on_date(day).each do |check_in|
+        check_in_out_times[i].push(check_in)
+      end
+    end
+
+    check_in_out_times
+  end
+
   private
 
     def format_minutes(minutes)

@@ -9,7 +9,13 @@
 
 .row.user-card__container
   - @employees.each do |employee|
-    .panel.panel-default.user-card
+    .panel.panel-default.user-card{ class: user_card_class_helper(employee) }
+
+      .user-card__body
+        - if employee.is_active?
+          = render 'shared/time_table/table', employee: employee
+        - else
+          %h2.user-card__deactivated Deactivated
 
       .user-card__side-panel
         = link_to employee do
@@ -34,10 +40,6 @@
       .panel-footer.user-card__footer
 
         %ul.user-card__footer--links
-          %li
-            = link_to '#', class: 'user-card__footer--link' do
-              %span.glyphicon.glyphicon-log-in
-              Check-in History
           %li
             = link_to '#', class: 'user-card__footer--link' do
               %span.glyphicon.glyphicon-log-in

@@ -4,7 +4,7 @@
   %h3.user-card--small__name
     = employee.full_name
     %small.user-card--small__job-title
-      - if employee.job_title.downcase == 'director'
+      - if employee.job_title.downcase == 'director' && employee.is_line_manager
         %br
         %span.label.label-default.user-card__director-label DIRECTOR
       - else

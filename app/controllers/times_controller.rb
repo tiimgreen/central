@@ -3,13 +3,15 @@ class TimesController < ApplicationController
   before_action :validate_check_in_time, only: :edit_check_in
   before_action :validate_check_out_time, only: :edit_check_out
   before_action :set_check_in, only: %i( edit_check_out edit_check_in )
-  before_action :set_week_variables, only: %i( index week )
   before_action :validate_is_start_of_week, only: :week
 
   def index
+    set_week_variables(current_employee)
   end
 
   def week
+    set_week_variables(current_employee)
+
     # renders the view for index so I don't need to create another view with
     # identicle content
     render :index
@@ -89,22 +91,6 @@ class TimesController < ApplicationController
 
     def set_check_in
       @check_in = CheckIn.find(params[:id])
-    end
-
-    def set_week_variables
-      start_date = params[:start_of_week] || Date.today.at_beginning_of_week
-      @start_of_week = Date.parse(start_date.to_s)
-      @week = @start_of_week..(@start_of_week + 4)
-
-      @check_in_out_times = [] # array used to populate time table
-
-      @week.each_with_index do |day, i|
-        @check_in_out_times[i] = []
-
-        current_employee.all_check_ins_on_date(day).each do |check_in|
-          @check_in_out_times[i].push(check_in)
-        end
-      end
     end
 
     def validate_is_start_of_week

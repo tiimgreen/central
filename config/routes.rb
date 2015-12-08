@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :employees
   post 'employees/:id/deactivate-employee', to: 'employees#deactivate_employee', as: :deactivate_employee
+  patch 'employees/:id/deactivate-employee', to: 'employees#deactivate_employee'
 
   resources :employee_holidays, path: 'holidays'
 

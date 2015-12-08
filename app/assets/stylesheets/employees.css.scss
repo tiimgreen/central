@@ -9,12 +9,33 @@
   .user-card {
     border: 1px solid #ccc;
     margin: 0 auto 30px auto;
+
+    &.deactivated {
+      border-color: #cce;
+
+      .user-card__side-panel {
+        color: #ccc;
+      }
+
+        .user-card__photo {
+          opacity: 0.4;
+        }
+
+        a {
+          color: #ccc;
+        }
+
+        .user-card__director-label {
+          color: #fff;
+          background: #ccc;
+        }
+    }
   }
 
     .user-card__side-panel {
       text-align: center;
       padding: 30px;
-      width: 300px;
+      width: 25%;
       height: 100%;
       background: #eee;
     }
@@ -44,6 +65,19 @@
       .user-card__details {
         padding: 0 20px 20px;
         list-style: none;
+      }
+
+    .user-card__body {
+      float: right;
+      text-align: center;
+      width: 75%;
+    }
+
+      .user-card__deactivated {
+        font-size: 100px;
+        color: #eee;
+        text-transform: uppercase;
+        margin-top: 130px;
       }
 
     .user-card__footer--links {

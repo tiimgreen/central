@@ -3,7 +3,15 @@ class EmployeesController < ApplicationController
   before_action :authenticate_line_manager!
 
   def index
-    @employees = Employee.all
+    @employees = Employee.all.order(
+      active: :desc,
+      last_name: :asc,
+      first_name: :asc
+    )
+
+    @start_of_week = Date.today.at_beginning_of_week
+    @end_of_week = @start_of_week + 4.days
+    @week = @start_of_week..(@start_of_week + 4)
   end
 
   def show
@@ -35,7 +43,7 @@ class EmployeesController < ApplicationController
 
   def deactivate_employee
     employee = Employee.find(params[:id])
-    end_date = Date.parse(params[:employee][:date])
+    end_date = Date.parse(params[:employee][:end_date])
 
     if employee.update_attributes(active: false, end_date: end_date)
       flash[:success] = 'Employee Deactivated'

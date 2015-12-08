@@ -1,0 +1,29 @@
+- if employee.is_sick_day?(day)
+  - if n == 0
+    %td.table-check-in-times__td.-sick-day.center{ rowspan: employee.max_check_ins_on_week_starting(@start_of_week) }
+      %strong Sick Day
+- elsif CompanyHoliday.is_holiday?(day)
+  - if n == 0
+    %td.table-check-in-times__td.-company-holiday.center{ rowspan: employee.max_check_ins_on_week_starting(@start_of_week) }
+      %strong Company Holiday
+- elsif employee.is_on_holiday?(day)
+  - if n == 0
+    %td.table-check-in-times__td.-employee-holiday.center{ rowspan: employee.max_check_ins_on_week_starting(@start_of_week) }
+      %strong Employee on Holiday
+- else
+  %td.table-check-in-times__td
+    - if time
+      %span.label.label-primary.label-time-table
+        %span.glyphicon.glyphicon-log-in
+        Check In
+
+      = time.check_in_time.strftime("%k:%M")
+
+      %br
+
+      - if time.check_out_time
+        %span.label.label-default.label-time-table
+          %span.glyphicon.glyphicon-log-out
+          Check Out
+
+        = time.check_out_time.strftime("%k:%M")

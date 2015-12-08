@@ -2,10 +2,8 @@ module CalendarHelper
   def calendar_class_helper(date)
     class_names = []
 
-    class_names << '-company-holiday' if CompanyHoliday.is_holiday?(date)
-    class_names << '-employee-holiday' if current_employee.is_on_holiday?(date)
-    class_names << '-sick-day' if current_employee.is_sick_day?(date)
     class_names << '-today' if date == Date.today
+    class_names << '-payday' if date.day == 25
 
     class_names.join(' ')
   end

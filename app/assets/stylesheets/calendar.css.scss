@@ -29,6 +29,7 @@ $calendar_nav_colour: #575757;
     width: auto;
     border: 1px solid $calendar_border_colour;
     background: lighten(#ddd, 8%);
+    position: relative;
 
     &.-current-month {
       background: lighten(#eee, 8%);
@@ -36,6 +37,21 @@ $calendar_nav_colour: #575757;
 
     &.-today {
       background: lighten($brand_primary, 50%);
+    }
+
+    &.-payday:before {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: inline-block;
+      text-decoration: inherit;
+      content: "\f154";
+      font: {
+        family: FontAwesome;
+        weight: normal;
+        style: normal;
+        size: 18px;
+      }
     }
   }
 

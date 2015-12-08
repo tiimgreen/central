@@ -1,3 +1,11 @@
+$('#datepicker.employee-termination-date').daterangepicker({
+  locale: {
+    format: 'DD/MM/YYYY'
+  },
+  'applyClass': 'btn-primary',
+  singleDatePicker: true
+});
+
 $('#daterange').daterangepicker({
   locale: {
     format: 'DD/MM/YYYY'

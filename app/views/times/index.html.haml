@@ -9,18 +9,23 @@
 
     %h5.center.week-starting
       .row
-        .col-md-4.previous-week
+        .col-md-3.previous-week
           - if current_employee.can_view_previous_week?(@start_of_week)
             = link_to 'previous week', week_path(@start_of_week - 7.days), class: 'btn btn-primary'
           - else
             = link_to 'previous week', week_path(@start_of_week - 7.days), class: 'btn btn-disabled', disabled: ''
 
-        .col-md-4.current-week
+        .col-md-6.current-week
           = @start_of_week.strftime("%a #{@start_of_week.day.ordinalize} %B")
+          &mdash;
+          = @end_of_week.strftime("%a #{@end_of_week.day.ordinalize} %B")
           %br
-          = @start_of_week.strftime("(%-d/%-m/%Y)")
+          = surround '(', ')' do
+            = @start_of_week.strftime("%-d/%-m/%Y")
+            &mdash;
+            = @end_of_week.strftime("%-d/%-m/%Y")
 
-        .col-md-4.next-week
+        .col-md-3.next-week
           - if current_employee.can_view_next_week?(@start_of_week)
             = link_to 'next week', week_path(@start_of_week + 7.days), class: 'btn btn-primary'
           - else
