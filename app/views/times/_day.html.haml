@@ -17,7 +17,7 @@
         %span.glyphicon.glyphicon-log-in
         Check In
 
-      = link_to time.check_in_time.strftime("%k:%M"), '#', class: 'table-check-in-times__link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-in', placement: i > 2 ? :left : :right }
+      = link_to time.check_in_time.strftime("%k:%M"), '#', class: 'table-check-in-times__time -link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-in', placement: i > 2 ? :left : :right }
 
       %div{ class: "hidden-time-form #{time.id}-check-in", style: "display: none"}
         = form_for time, url: edit_time_check_in_path(time), html: { class: 'affix-time__form' } do |f|
@@ -31,7 +31,7 @@
           %span.glyphicon.glyphicon-log-out
           Check Out
 
-        = link_to time.check_out_time.strftime("%k:%M"), '#', class: 'table-check-in-times__link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-out', placement: i > 2 ? :left : :right }
+        = link_to time.check_out_time.strftime("%k:%M"), '#', class: 'table-check-in-times__time -link', title: 'Edit time', data: { toggle: :popover, check_in_id: time.id, check_in_type: 'check-out', placement: i > 2 ? :left : :right }
 
         %div{ class: "hidden-time-form #{time.id}-check-out", style: "display: none" }
           = form_for time, url: edit_time_check_out_path(time), html: { class: 'affix-time__form' } do |f|

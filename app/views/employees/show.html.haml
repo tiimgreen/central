@@ -9,3 +9,25 @@
 .row
   .col-md-3
     = render 'shared/small_user_card', employee: @employee
+  .col-md-9.employee-show__table-container
+    = render 'shared/time_table/table', employee: @employee
+
+    .panel.panel-default.new-employee-form
+      .panel-heading Details
+      .panel-body
+        .row
+          .col-md-6
+            %form.form-horizontal
+              .form-group
+                %label.col-sm-2.control-label Email
+                .col-sm-10
+                  %p.form-control-static= link_to @employee.email, "mailto:#{@employee.email}"
+          .col-md-6
+            %form.form-horizontal
+              .form-group
+                %label.col-sm-2.control-label D.O.B.
+                .col-sm-10
+                  %p.form-control-static
+                    = @employee.date_of_birth.strftime("%-d/%-m/%Y")
+                    = surround '(', ')' do
+                      = @employee.age

@@ -16,6 +16,10 @@ class EmployeesController < ApplicationController
 
   def show
     @employee = Employee.find(params[:id])
+
+    @start_of_week = Date.today.at_beginning_of_week
+    @end_of_week = @start_of_week + 4.days
+    @week = @start_of_week..(@start_of_week + 4)
   end
 
   def new

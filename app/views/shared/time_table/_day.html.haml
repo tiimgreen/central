@@ -17,7 +17,7 @@
         %span.glyphicon.glyphicon-log-in
         Check In
 
-      = time.check_in_time.strftime("%k:%M")
+      %span.table-check-in-times__time= time.check_in_time.strftime("%k:%M")
 
       %br
 
@@ -26,4 +26,4 @@
           %span.glyphicon.glyphicon-log-out
           Check Out
 
-        = time.check_out_time.strftime("%k:%M")
+        %span.table-check-in-times__time= time.check_out_time.strftime("%k:%M")

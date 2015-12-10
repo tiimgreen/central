@@ -8,7 +8,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-$('.table-check-in-times__link').on('click', function(e) {
+$('.table-check-in-times__time.-link').on('click', function(e) {
   e.preventDefault(); // prevents normal events fired when link is clicked
 
   $('.popover').popover('hide'); // hide all popovers

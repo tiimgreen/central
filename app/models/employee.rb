@@ -178,6 +178,9 @@ class Employee < ActiveRecord::Base
     start_date <= start_of_current_week - 3.days
   end
 
+  # Can the Employee check in on the given date?
+  #
+  # @returns (Booelean)
   def can_check_in?(date)
     !is_on_holiday?(date) &&
     !is_sick_day?(date) &&
@@ -267,6 +270,10 @@ class Employee < ActiveRecord::Base
     requests
   end
 
+  # Does the employee has enough holiday days remaining to book a holiday in
+  # the date range given?
+  #
+  # @returns (Boolean)
   def has_enough_holiday_left?(date_range)
     calculate_holidays_used(date_range) <= remaining_holiday_days
   end
@@ -279,6 +286,9 @@ class Employee < ActiveRecord::Base
     !is_on_holiday?(date)
   end
 
+  # Is the employee on holiday on the given date?
+  #
+  # @returns (Boolean)
   def is_on_holiday?(date)
     approved_holiday_requests.each do |request|
       request.employee_holidays.each do |holiday|
@@ -289,11 +299,17 @@ class Employee < ActiveRecord::Base
     false
   end
 
+  # Is the given date the birthday of the employee?
+  #
+  # @returns (Boolean)
   def is_birthday?(date)
     date_of_birth.day == date.day &&
     date_of_birth.month == date.month
   end
 
+  # Has the employee set an avatar
+  #
+  # @returns (Boolean)
   def has_avatar?
     avatar.url != IMAGE_MISSING_PATH
   end
@@ -310,6 +326,14 @@ class Employee < ActiveRecord::Base
     end
 
     check_in_out_times
+  end
+
+  # Returns age of employee
+  #
+  # @returns (Integer)
+  def age
+    now = Time.now.utc.to_date
+    now.year - date_of_birth.year - (date_of_birth.to_date.change(year: now.year) > now ? 1 : 0)
   end
 
   private
