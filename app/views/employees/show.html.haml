@@ -10,24 +10,70 @@
   .col-md-3
     = render 'shared/small_user_card', employee: @employee
   .col-md-9.employee-show__table-container
+    %h5.center.week-starting
+      .row
+        .col-md-3.previous-week
+          - if current_employee.can_view_previous_week?(@start_of_week)
+            = link_to 'previous week', employee_calendar_week_path(@employee, @start_of_week - 7.days), class: 'btn btn-primary'
+          - else
+            = link_to 'previous week', employee_calendar_week_path(@employee, @start_of_week - 7.days), class: 'btn btn-disabled', disabled: ''
+
+        .col-md-6.current-week
+          = @start_of_week.strftime("%a #{@start_of_week.day.ordinalize} %B")
+          &mdash;
+          = @end_of_week.strftime("%a #{@end_of_week.day.ordinalize} %B")
+          %br
+          = surround '(', ')' do
+            = @start_of_week.strftime("%-d/%-m/%Y")
+            &mdash;
+            = @end_of_week.strftime("%-d/%-m/%Y")
+
+        .col-md-3.next-week
+          - if current_employee.can_view_next_week?(@start_of_week)
+            = link_to 'next week', employee_calendar_week_path(@employee, @start_of_week + 7.days), class: 'btn btn-primary'
+          - else
+            = link_to 'next week', employee_calendar_week_path(@employee, @start_of_week + 7.days), class: 'btn btn-disabled', disabled: ''
+
     = render 'shared/time_table/table', employee: @employee
 
     .panel.panel-default.new-employee-form
-      .panel-heading Details
+      .panel-heading
+        .pull-right= link_to 'Edit', edit_employee_path(@employee)
+        Details
       .panel-body
         .row
           .col-md-6
             %form.form-horizontal
               .form-group
-                %label.col-sm-2.control-label Email
-                .col-sm-10
+                %label.col-sm-3.control-label Email
+                .col-sm-9
                   %p.form-control-static= link_to @employee.email, "mailto:#{@employee.email}"
+              .form-group
+                %label.col-sm-3.control-label Address
+                .col-sm-9
+                  %p.form-control-static= @employee.address
           .col-md-6
             %form.form-horizontal
               .form-group
-                %label.col-sm-2.control-label D.O.B.
-                .col-sm-10
+                %label.col-sm-3.control-label D.O.B.
+                .col-sm-9
                   %p.form-control-static
                     = @employee.date_of_birth.strftime("%-d/%-m/%Y")
                     = surround '(', ')' do
                       = @employee.age
+      %hr
+        .row
+          .col-md-6
+            %form.form-horizontal
+              .form-group
+                %label.col-sm-3.control-label Job Title
+                .col-sm-9
+                  %p.form-control-static
+                    = @employee.job_title
+          .col-md-6
+            %form.form-horizontal
+              .form-group
+                %label.col-sm-3.control-label Contracted Hours
+                .col-sm-9
+                  %p.form-control-static
+                    = @employee.contracted_hours

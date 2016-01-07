@@ -14,6 +14,21 @@ class EmployeesController < ApplicationController
     @week = @start_of_week..(@start_of_week + 4)
   end
 
+  def week
+    @employees = Employee.all.order(
+      active: :desc,
+      last_name: :asc,
+      first_name: :asc
+    )
+
+    @employee = Employee.find(params[:id])
+    @start_of_week = Date.today.at_beginning_of_week
+    @end_of_week = @start_of_week + 4.days
+    @week = @start_of_week..(@start_of_week + 4)
+
+    render :show
+  end
+
   def show
     @employee = Employee.find(params[:id])
 

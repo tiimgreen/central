@@ -7,13 +7,14 @@ Rails.application.routes.draw do
   # Sets the 'index' action in the Times controller as the home page.
   root 'times#index'
 
-  get 'week/:start_of_week', to: 'times#week', as: :week
+  get 'week/:start_of_week', to: 'times#week', as: :calendar_week
   get 'sick-day/:date', to: 'times#mark_sick_day', as: :mark_sick_day
 
   post 'check-in', to: 'check_ins#check_in', as: :check_in
   post 'check-out', to: 'check_ins#check_out', as: :check_out
 
   resources :employees
+  get 'employees/:id/:start_of_week', to: 'employees#week', as: :employee_calendar_week
   post 'employees/:id/deactivate-employee', to: 'employees#deactivate_employee', as: :deactivate_employee
   patch 'employees/:id/deactivate-employee', to: 'employees#deactivate_employee'
 

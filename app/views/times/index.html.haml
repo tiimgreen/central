@@ -11,9 +11,9 @@
       .row
         .col-md-3.previous-week
           - if current_employee.can_view_previous_week?(@start_of_week)
-            = link_to 'previous week', week_path(@start_of_week - 7.days), class: 'btn btn-primary'
+            = link_to 'previous week', calendar_week_path(@start_of_week - 7.days), class: 'btn btn-primary'
           - else
-            = link_to 'previous week', week_path(@start_of_week - 7.days), class: 'btn btn-disabled', disabled: ''
+            = link_to 'previous week', calendar_week_path(@start_of_week - 7.days), class: 'btn btn-disabled', disabled: ''
 
         .col-md-6.current-week
           = @start_of_week.strftime("%a #{@start_of_week.day.ordinalize} %B")
@@ -27,8 +27,8 @@
 
         .col-md-3.next-week
           - if current_employee.can_view_next_week?(@start_of_week)
-            = link_to 'next week', week_path(@start_of_week + 7.days), class: 'btn btn-primary'
+            = link_to 'next week', calendar_week_path(@start_of_week + 7.days), class: 'btn btn-primary'
           - else
-            = link_to 'next week', week_path(@start_of_week + 7.days), class: 'btn btn-disabled', disabled: ''
+            = link_to 'next week', calendar_week_path(@start_of_week + 7.days), class: 'btn btn-disabled', disabled: ''
 
     = render 'time_table'

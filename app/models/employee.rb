@@ -336,6 +336,14 @@ class Employee < ActiveRecord::Base
     now.year - date_of_birth.year - (date_of_birth.to_date.change(year: now.year) > now ? 1 : 0)
   end
 
+  def address
+    address = "#{address_line_1}"
+    address << "<br>#{address_line_2}" unless address_line_2.empty?
+    address << "<br>#{post_code}" unless post_code.empty?
+
+    address.html_safe
+  end
+
   private
 
     def format_minutes(minutes)

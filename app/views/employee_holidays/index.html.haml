@@ -21,8 +21,8 @@
 
           = f.submit 'Request', class: 'btn btn-default btn-holiday-request pull-right'
 
-    %h3 Your Holidays
-    - current_employee.pending_holiday_requests.each do |holiday|
+    %h3 Your Upcoming Holidays
+    - @pending_employee_holidays.each do |holiday|
       .panel.panel-warning
         .panel-heading.center Pending
         .panel-body
@@ -37,7 +37,7 @@
               %strong Days Used
               .holiday-panel__section--value= holiday.total_days_requested
 
-    - current_employee.approved_holiday_requests.each do |holiday|
+    - @approved_employee_holidays.each do |holiday|
       .panel.panel-success
         .panel-heading.center
           %h4 Approved
@@ -53,7 +53,7 @@
               %strong Days Used
               .holiday-panel__section--value= holiday.total_days_requested
 
-    %h3 Company Holidays
+    %h3 Upcoming Company Holidays
     .row
       - @company_holidays.each do |holiday|
         = render 'shared/company_holiday', holiday: holiday
