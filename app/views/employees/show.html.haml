@@ -4,7 +4,7 @@
   .alert.alert-info{ role: alert }
     This employee left Parallax on
     = succeed '.' do
-      = @employee.end_date.strftime("%a #{@employee.end_date.day.ordinalize} %B")
+      = @employee.end_date.strftime("%a #{@employee.end_date.day.ordinalize} %B %Y")
 
 - if @employee.active
   .pull-right

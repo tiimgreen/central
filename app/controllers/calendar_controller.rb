@@ -39,6 +39,8 @@ class CalendarController < ApplicationController
         @dates.last << nil
       end
     end
+
+    @active_employees = Employee.all.where(active: true)
   end
 
   private
