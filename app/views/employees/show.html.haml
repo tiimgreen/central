@@ -1,5 +1,11 @@
 - provide :title, @employee.full_name
 
+- unless @employee.active
+  .alert.alert-info{ role: alert }
+    This employee left Parallax on
+    = succeed '.' do
+      = @employee.end_date.strftime("%a #{@employee.end_date.day.ordinalize} %B")
+
 - if @employee.active
   .pull-right
     = link_to 'Deactivate Employee', '#', class: 'btn btn-danger btn-deactivate-employee', data: { toggle: 'modal', target: '#deactivate_employee_modal' }
