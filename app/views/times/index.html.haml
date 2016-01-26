@@ -19,11 +19,6 @@
           = @start_of_week.strftime("%a #{@start_of_week.day.ordinalize} %B")
           &mdash;
           = @end_of_week.strftime("%a #{@end_of_week.day.ordinalize} %B")
-          %br
-          = surround '(', ')' do
-            = @start_of_week.strftime("%-d/%-m/%Y")
-            &mdash;
-            = @end_of_week.strftime("%-d/%-m/%Y")
 
         .col-md-3.next-week
           - if current_employee.can_view_next_week?(@start_of_week)

@@ -12,6 +12,10 @@ class CalendarController < ApplicationController
     render :index
   end
 
+  # Sets the variables for the calendar, used on #index and #month
+  #
+  # @param (Integer) - the integer representation of the current month (1 - 12)
+  # @param (Integer) - the current year (e.g. 2016)
   def set_variables(month, year)
     @month = month
     @year = year
@@ -24,6 +28,7 @@ class CalendarController < ApplicationController
     # Add blank dates before 1st of month
     blank_spaces_at_start_of_cal(@start_of_month.wday).times { @dates[0] << nil }
 
+    # Loop over days in given month
     @days_in_month.times do |date_in_month|
       date_in_month = date_in_month + 1
 
@@ -34,6 +39,8 @@ class CalendarController < ApplicationController
       @dates[row] << date_in_month
     end
 
+    # Fill remaining array with nil values after the last day of the month
+    # to keep aesthetic consistency
     if @dates.last.length < 7
       (7 - @dates.last.length).times do |n|
         @dates.last << nil
