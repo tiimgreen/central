@@ -69,4 +69,20 @@ describe Employee do
       end
     end
   end
+
+  describe '#checked_in?' do
+    context 'when checked in' do
+      before { employee.check_in }
+
+      it 'returns true' do
+        expect(employee.checked_in?).to eq(true)
+      end
+    end
+
+    context 'when not checked in' do
+      it 'returns false' do
+        expect(employee.checked_in?).to eq(false)
+      end
+    end
+  end
 end
