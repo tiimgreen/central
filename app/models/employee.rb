@@ -65,8 +65,7 @@ class Employee < ActiveRecord::Base
   end
 
   def check_in
-    check_in = check_ins.build(check_in_time: Time.now)
-    check_in.save
+    check_ins.create(check_in_time: Time.now)
   end
 
   def check_out
