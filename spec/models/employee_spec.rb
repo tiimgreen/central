@@ -52,4 +52,21 @@ describe Employee do
       end
     end
   end
+
+  describe '#subordinates' do
+    context 'when employee has subordinates' do
+      let!(:subordinate_1) { FactoryGirl.create(:employee, line_manager_id: employee.id) }
+      let!(:subordinate_2) { FactoryGirl.create(:employee, line_manager_id: employee.id) }
+
+      it 'returns the subordinates' do
+        expect(employee.subordinates.to_a).to eq([subordinate_1, subordinate_2])
+      end
+    end
+
+    context 'when employee has no subordinates' do
+      it 'returns the subordinates' do
+        expect(employee.subordinates.to_a).to eq([])
+      end
+    end
+  end
 end
