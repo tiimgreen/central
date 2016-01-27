@@ -18,4 +18,9 @@ gem 'spring', '~> 1.2', group: :development
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
+  gem 'factory_girl_rails', '~> 4.5'
+  gem 'database_cleaner'
+  gem 'shoulda', '~> 3.5'
+  gem 'capybara', '~> 2.4.1'
+  gem 'faker', '~> 1.4.2'
 end
