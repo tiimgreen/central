@@ -64,6 +64,26 @@ class Employee < ActiveRecord::Base
     Employee.where(line_manager_id: id)
   end
 
+  def check_in
+    check_in = check_ins.build(check_in_time: Time.now)
+    check_in.save
+  end
+
+  def check_out
+    check_in = check_ins.order(:check_in_time).last
+
+    # If the user is checking out a day after they checked in, they must have
+    # forgotten to check out so it changes check-out time to the end of the
+    # previous day, allowing them to change it as needed.
+    if Time.at(Time.now).to_date === Time.at(check_in.check_in_time).to_date
+      check_out_time = Time.now
+    else
+      check_out_time = Time.at(check_in.check_in_time).to_date.end_of_day
+    end
+
+    check_in.update_attributes(check_out_time: check_out_time)
+  end
+
   # Is self checked in currently
   #
   # @returns (Boolean)
