@@ -131,7 +131,7 @@ class Employee < ActiveRecord::Base
   # @param (Date) - date of first day of the week
   # @returns (Integer) - on any given day of week, max number of check-ins
   def max_check_ins_on_week_starting(date)
-    week = (date..(date + 4)).to_a
+    week = (date..(date + 6)).to_a
 
     max_check_ins = 0
 

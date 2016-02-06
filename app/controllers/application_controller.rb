@@ -42,8 +42,8 @@ class ApplicationController < ActionController::Base
   def set_week_variables(employee)
     start_date = params[:start_of_week] || Date.today.at_beginning_of_week
     @start_of_week = Date.parse(start_date.to_s)
-    @end_of_week = @start_of_week + 4.days
-    @week = @start_of_week..(@start_of_week + 4)
+    @end_of_week = @start_of_week + 6.days
+    @week = @start_of_week..(@start_of_week + 6)
 
     @check_in_out_times = employee.check_in_out_times(@week)
   end
