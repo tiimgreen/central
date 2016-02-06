@@ -11,7 +11,7 @@
 </head>
 <body class="<%= controller.controller_name %> <%= controller.action_name %>">
 
-<%= render 'layouts/header' unless on_page('sessions', 'new') || on_page('registrations', 'new') %>
+<%= render 'layouts/header' if header_should_be_displayed %>
 
 <div class="container">
   <%= render 'layouts/flash_notice' unless on_page('sessions', 'new') || on_page('registrations', 'new') %>

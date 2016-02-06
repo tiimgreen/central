@@ -9,4 +9,10 @@ module ApplicationHelper
       controller.controller_name == cont.downcase
     end
   end
+
+  def header_should_be_displayed
+    !on_page('sessions', 'new') &&
+    !on_page('registrations', 'new') &&
+    !on_page('passwords', 'new')
+  end
 end
