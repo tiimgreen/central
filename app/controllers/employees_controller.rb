@@ -10,8 +10,8 @@ class EmployeesController < ApplicationController
     )
 
     @start_of_week = Date.today.at_beginning_of_week
-    @end_of_week = @start_of_week + 4.days
-    @week = @start_of_week..(@start_of_week + 4)
+    @end_of_week = @start_of_week + 6.days
+    @week = @start_of_week..@end_of_week
   end
 
   def week
