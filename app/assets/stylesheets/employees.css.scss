@@ -1,6 +1,5 @@
-// Place all the styles related to the Employees controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$employee_holiday_colour: darken(#00ebbe, 5%);
+
 
 .user-card__container {
   margin-top: 50px;
@@ -140,4 +139,44 @@
 
   .employee-show__table-container {
     margin-top: 20px;
+  }
+
+.employee-holidays {
+  border: 1px solid #ccc;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+}
+
+  .employee-holidays__list {
+    padding: 0;
+    list-style: none;
+    padding-left: 25px;
+    margin-left: 20px;
+    margin-bottom: 0;
+    font-size: 12px;
+    color: $employee_holiday_colour;
+
+    &:first-child {
+      margin-top: -20px;
+    }
+
+    li {
+      margin-left: -20px;
+
+      &:before {
+        font-family: FontAwesome;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 11px;
+        display: inline-block;
+        text-decoration: inherit;
+        margin-right: 10px;
+        content: "\f072";
+      }
+
+      a {
+        text-decoration: underline;
+        color: $employee_holiday_colour;
+      }
+    }
   }

@@ -6,10 +6,12 @@ class TimesController < ApplicationController
 
   def index
     set_week_variables(current_employee)
+    @holiday_list_days = (Date.today..(Date.today + 60.days)).to_a
   end
 
   def week
     set_week_variables(current_employee)
+    @holiday_list_days = (Date.today..(Date.today + 60.days)).to_a
 
     # renders the view for index so I don't need to create another view with
     # identicle content

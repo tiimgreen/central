@@ -1,0 +1,10 @@
+.employee-holidays
+  - @holiday_list_days.each do |date|
+    - if any_employee_holidays_on_date?(date)
+      %h6= date.strftime("%a #{date.day.ordinalize} %B")
+      %ul.employee-holidays__list
+        - EmployeeHoliday.on_date(date).each do |holiday|
+          - if current_employee.is_line_manager
+            %li= link_to holiday.holiday_request.employee.full_name, holiday.holiday_request.employee
+          - else
+            %li= holiday.holiday_request.employee.full_name
