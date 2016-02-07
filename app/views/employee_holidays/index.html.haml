@@ -53,8 +53,24 @@
               %strong Days Used
               .holiday-panel__section--value= holiday.total_days_requested
 
+    %h3 Your Declined Holidays
+    - @declined_employee_holidays.each do |holiday|
+      .panel.panel-danger
+        .panel-heading.center
+          %h4 Declined
+        .panel-body
+          .row
+            .col-md-4.holiday-panel__section
+              %strong From
+              .holiday-panel__section--value= holiday.date_from.strftime("%a #{holiday.date_from.day.ordinalize} %B")
+            .col-md-4.holiday-panel__section
+              %strong To
+              .holiday-panel__section--value= holiday.date_to.strftime("%a #{holiday.date_to.day.ordinalize} %B")
+            .col-md-4.holiday-panel__section
+              %strong Days Used
+              .holiday-panel__section--value= holiday.total_days_requested
+
     %h3 Upcoming Company Holidays
     .row
       - @company_holidays.each do |holiday|
         = render 'shared/company_holiday', holiday: holiday
-

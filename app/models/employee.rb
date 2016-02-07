@@ -270,6 +270,10 @@ class Employee < ActiveRecord::Base
     self.holiday_requests.where(authorised: true)
   end
 
+  def declined_holiday_requests
+    self.holiday_requests.where(authorised: false)
+  end
+
   def pending_holiday_requests
     self.holiday_requests.where(
       "authorised = ? AND authorised_by_id IS NULL",
@@ -286,7 +290,7 @@ class Employee < ActiveRecord::Base
       end
     end
 
-    requests
+    requests.flatten
   end
 
   # Does the employee has enough holiday days remaining to book a holiday in

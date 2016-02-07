@@ -13,6 +13,9 @@ class EmployeeHolidaysController < ApplicationController
     @approved_employee_holidays = current_employee.approved_holiday_requests.where(
       "date_to >= ?", Date.today
     ).order(:date_to)
+    @declined_employee_holidays = current_employee.declined_holiday_requests.where(
+      "date_to >= ?", Date.today
+    ).order(:date_to)
   end
 
   def new

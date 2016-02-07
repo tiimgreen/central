@@ -23,6 +23,10 @@ class HolidayRequest < ActiveRecord::Base
         errors.add(:base, 'That date is a company holiday, please chose another date.')
       end
     end
+
+    if total_days_requested == 0
+      errors.add(:base, 'All the dates you requested are dates you are not scheduled to be in the office.')
+    end
   end
 
   def start_date
@@ -54,5 +58,11 @@ class HolidayRequest < ActiveRecord::Base
       (date_from..date_to).to_a.each do |date|
         self.employee_holidays.create(date: date) if employee.is_allowed_date_off?(date)
       end
+
+      hols = employee_holidays.order(:date)
+      puts hols.inspect
+      puts "***************************************"
+
+      update_attributes(date_form: hols.first, date_to: hols.last)
     end
 end
