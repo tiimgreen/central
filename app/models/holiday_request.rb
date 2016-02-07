@@ -58,11 +58,5 @@ class HolidayRequest < ActiveRecord::Base
       (date_from..date_to).to_a.each do |date|
         self.employee_holidays.create(date: date) if employee.is_allowed_date_off?(date)
       end
-
-      hols = employee_holidays.order(:date)
-      puts hols.inspect
-      puts "***************************************"
-
-      update_attributes(date_form: hols.first, date_to: hols.last)
     end
 end

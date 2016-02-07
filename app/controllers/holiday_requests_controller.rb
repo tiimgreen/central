@@ -16,7 +16,7 @@ class HolidayRequestsController < ApplicationController
     if @holiday_request.approve_by(current_employee)
       flash[:success] = "You have approved #{@holiday_request.employee.full_name}'s holiday!"
     else
-      flash[:success] = "Error approving holiday."
+      flash[:warning] = 'Error approving holiday.'
     end
 
     redirect_to request.referrer
@@ -28,7 +28,7 @@ class HolidayRequestsController < ApplicationController
     if @holiday_request.decline_by(current_employee)
       flash[:success] = "You have declined #{@holiday_request.employee.full_name}'s holiday."
     else
-      flash[:success] = "Error declining holiday."
+      flash[:warning] = 'Error declining holiday.'
     end
 
     redirect_to request.referrer

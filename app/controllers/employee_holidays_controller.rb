@@ -36,6 +36,23 @@ class EmployeeHolidaysController < ApplicationController
   private
 
     def create_holiday_requests(date_range)
+      weekend_holiday = true
+
+      date_range.each do |date|
+        unless is_weekend?(date)
+          weekend_holiday = false
+          break
+        end
+      end
+
+      if weekend_holiday
+        flash[:warning] = 'You cannot request a holiday on the weekend.'
+        return
+      end
+
+      date_range.shift while is_weekend?(date_range.first)
+      date_range = date_range[0...-1] while is_weekend?(date_range.last)
+
       request = current_employee.holiday_requests.build(
         date_from: date_range.first,
         date_to: date_range.last

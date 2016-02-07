@@ -271,7 +271,10 @@ class Employee < ActiveRecord::Base
   end
 
   def declined_holiday_requests
-    self.holiday_requests.where(authorised: false)
+    self.holiday_requests.where(
+      "authorised = ? AND authorised_by_id IS NOT NULL",
+      false
+    )
   end
 
   def pending_holiday_requests
