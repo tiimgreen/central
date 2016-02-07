@@ -19,7 +19,8 @@ body {
 
   &.sessions.new,
   &.registrations.new,
-  &.passwords.new {
+  &.passwords.new,
+  &.passwords.create {
     background-image: image-url('log_in_bg.jpg');
   }
 }

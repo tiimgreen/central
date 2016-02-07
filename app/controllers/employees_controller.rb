@@ -50,9 +50,20 @@ class EmployeesController < ApplicationController
   end
 
   def edit
+    @employee = Employee.find(params[:id])
+    @potential_line_manager = Employee.where(active: true, is_line_manager: true)
   end
 
   def update
+    @employee = Employee.find(params[:id])
+    @potential_line_manager = Employee.where(active: true, is_line_manager: true)
+
+    if @employee.update_attributes(employee_params)
+      flash[:success] = 'Employee updated'
+      redirect_to @employee
+    else
+      render :edit
+    end
   end
 
   def deactivate_employee

@@ -123,3 +123,13 @@ $brand_primary: #00ebbe;
   margin-left: auto;
   margin-right: auto;
 }
+
+.field_with_errors {
+  label {
+    color: #ff0000;
+  }
+
+  input {
+    border-color: #ff0000;
+  }
+}

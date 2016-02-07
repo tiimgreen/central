@@ -31,8 +31,6 @@ module HolidaysHelper
         holidays = request.employee_holidays.where(date: date)
         employees_off += holidays.count
       end
-      # holidays = EmployeeHoliday.where(employee_id: colleague.id, date: date)
-      # employees_off += holidays.count
     end
 
     if employee.is_line_manager

@@ -3,7 +3,7 @@
     %thead
       %tr.table-check-in-times__tr
         - @week.each do |day|
-          %td.center
+          %th.center.table-check-in-times__th
             - if current_employee.can_mark_as_sick_day?(day)
               %strong
                 = link_to day.strftime('%A'), mark_sick_day_path(day), title: 'Mark as sick day', class: 'table-check-in-times__week-day', data: { toggle: :tooltip, placement: :top, confirm: 'Are you sure?' }

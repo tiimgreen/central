@@ -2,7 +2,6 @@ class TimesController < ApplicationController
   before_action :authenticate_employee!
   before_action :validate_check_in_time, only: :edit_check_in
   before_action :validate_check_out_time, only: :edit_check_out
-  before_action :set_check_in, only: %i( edit_check_out edit_check_in )
   before_action :validate_is_start_of_week, only: :week
 
   def index
@@ -18,6 +17,8 @@ class TimesController < ApplicationController
   end
 
   def edit_check_in
+    @check_in = CheckIn.find(params[:id])
+
     check_in_date = Date.new(
       @check_in.check_in_time.year,
       @check_in.check_in_time.month,
@@ -27,7 +28,7 @@ class TimesController < ApplicationController
     additional_seconds = Time.parse(params[:check_in][:check_in_time]).seconds_since_midnight.seconds
     new_time = check_in_date.to_datetime + additional_seconds
 
-    if @check_in.update_attributes(check_in_time: new_time)
+    if new_time < @check_in.check_out_time && @check_in.update_attributes(check_in_time: new_time)
       flash[:success] = 'Time updated!'
     else
       flash[:danger] = 'Error updating time'
@@ -37,6 +38,8 @@ class TimesController < ApplicationController
   end
 
   def edit_check_out
+    @check_in = CheckIn.find(params[:id])
+
     check_out_date = Date.new(
       @check_in.check_out_time.year,
       @check_in.check_out_time.month,
@@ -46,7 +49,7 @@ class TimesController < ApplicationController
     additional_seconds = Time.parse(params[:check_in][:check_out_time]).seconds_since_midnight.seconds
     new_time = check_out_date.to_datetime + additional_seconds
 
-    if @check_in.update_attributes(check_out_time: new_time)
+    if new_time > @check_in.check_in_time && @check_in.update_attributes(check_out_time: new_time)
       flash[:success] = 'Time updated!'
     else
       flash[:danger] = 'Error updating time'
@@ -87,10 +90,6 @@ class TimesController < ApplicationController
         flash[:danger] = 'That is not a valid time!'
         redirect_to request.referrer
       end
-    end
-
-    def set_check_in
-      @check_in = CheckIn.find(params[:id])
     end
 
     def validate_is_start_of_week

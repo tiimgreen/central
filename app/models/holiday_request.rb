@@ -34,16 +34,18 @@ class HolidayRequest < ActiveRecord::Base
   end
 
   def total_days_requested
-    (date_to - date_from).to_i + 1
+    total = 0
+    (date_from..date_to).each { |date| total += 1 if !is_weekend?(date) && !is_company_holiday?(date) }
+    total
   end
 
-  def approve_by(employee)
-    update_attributes(authorised: true, authorised_by_id: employee.id)
+  def approve_by(line_manager)
     create_employee_holidays
+    update_attributes(authorised: true, authorised_by_id: line_manager.id)
   end
 
-  def decline_by(employee)
-    update_attributes(authorised: false, authorised_by_id: employee.id)
+  def decline_by(line_manager)
+    update_attributes(authorised: false, authorised_by_id: line_manager.id)
   end
 
   private

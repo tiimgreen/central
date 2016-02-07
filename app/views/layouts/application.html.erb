@@ -14,7 +14,7 @@
 <%= render 'layouts/header' if header_should_be_displayed %>
 
 <div class="container">
-  <%= render 'layouts/flash_notice' unless on_page('sessions', 'new') || on_page('registrations', 'new') %>
+  <%= render 'shared/flash_notice' unless on_page('sessions', 'new') || on_page('registrations', 'new') %>
   <%= yield %>
 </div>
 

@@ -21,7 +21,7 @@
 
       %div{ class: "hidden-time-form #{time.id}-check-in", style: "display: none"}
         = form_for time, url: edit_time_check_in_path(time), html: { class: 'affix-time__form' } do |f|
-          = f.text_field :check_in_time, value: time.check_in_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field'
+          = f.text_field :check_in_time, value: time.check_in_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field', pattern: '([01]?[0-9]|2[0-3]):[0-5][0-9]', title: 'Must be 24 hour format (HH:MM)'
           = f.submit 'Fix', class: 'btn btn-default pull-right affix-time__form--button'
 
       %br
@@ -35,5 +35,5 @@
 
         %div{ class: "hidden-time-form #{time.id}-check-out", style: "display: none" }
           = form_for time, url: edit_time_check_out_path(time), html: { class: 'affix-time__form' } do |f|
-            = f.text_field :check_out_time, value: time.check_out_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field'
+            = f.text_field :check_out_time, value: time.check_out_time.strftime("%k:%M").strip, class: 'affix-time__form--text-field', pattern: '([01]?[0-9]|2[0-3]):[0-5][0-9]', title: 'Must be 24 hour format (HH:MM)'
             = f.submit 'Fix', class: 'btn btn-default pull-right affix-time__form--button'

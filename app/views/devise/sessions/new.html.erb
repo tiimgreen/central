@@ -7,15 +7,16 @@
   <div class="panel-body">
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= render 'shared/flash_notice' %>
       <%= devise_error_messages! %>
       <div class="form-group center">
         <%= f.label :email, class: 'control-label' %>
-        <%= f.email_field :email, class: 'form-control', autofocus: true %>
+        <%= f.email_field :email, class: 'form-control', autofocus: true, required: true %>
       </div>
 
       <div class="form-group center">
         <%= f.label :password, class: 'control-label' %>
-        <%= f.password_field :password, class: 'form-control', autocomplete: :off %>
+        <%= f.password_field :password, class: 'form-control', autocomplete: :off, required: true %>
       </div>
 
       <div class="form-group center">

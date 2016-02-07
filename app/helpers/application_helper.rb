@@ -13,6 +13,7 @@ module ApplicationHelper
   def header_should_be_displayed
     !on_page('sessions', 'new') &&
     !on_page('registrations', 'new') &&
-    !on_page('passwords', 'new')
+    !on_page('passwords', 'new') &&
+    !on_page('passwords', 'create')
   end
 end
