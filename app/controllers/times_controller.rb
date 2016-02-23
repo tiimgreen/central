@@ -30,7 +30,7 @@ class TimesController < ApplicationController
     additional_seconds = Time.parse(params[:check_in][:check_in_time]).seconds_since_midnight.seconds
     new_time = check_in_date.to_datetime + additional_seconds
 
-    if new_time < @check_in.check_out_time && @check_in.update_attributes(check_in_time: new_time)
+    if (!@check_in.check_out_time || (new_time < @check_in.check_out_time)) && @check_in.update_attributes(check_in_time: new_time)
       flash[:success] = 'Time updated!'
     else
       flash[:danger] = 'Error updating time'
@@ -51,10 +51,14 @@ class TimesController < ApplicationController
     additional_seconds = Time.parse(params[:check_in][:check_out_time]).seconds_since_midnight.seconds
     new_time = check_out_date.to_datetime + additional_seconds
 
-    if new_time > @check_in.check_in_time && @check_in.update_attributes(check_out_time: new_time)
-      flash[:success] = 'Time updated!'
+    if new_time < @check_in.check_in_time
+      flash[:warning] = "You can't change the check in time to before the check out time."
     else
-      flash[:danger] = 'Error updating time'
+      if @check_in.update_attributes(check_out_time: new_time)
+        flash[:success] = 'Time updated!'
+      else
+        flash[:danger] = 'Error updating time'
+      end
     end
 
     redirect_to request.referrer

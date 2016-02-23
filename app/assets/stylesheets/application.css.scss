@@ -21,6 +21,10 @@ body {
   &.registrations.new,
   &.passwords.new,
   &.passwords.create {
-    background-image: image-url('log_in_bg.jpg');
+    background: image-url('log_in_bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   }
 }
