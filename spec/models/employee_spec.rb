@@ -85,4 +85,23 @@ describe Employee do
       end
     end
   end
+
+  describe '#minutes_checked_in_on_date' do
+    context 'when checked in' do
+      let!(:employee) { FactoryGirl.create(:employee) }
+      let!(:check_in) { FactoryGirl.create(:check_in, employee: employee, check_in_time: 2.minutes.ago) }
+
+      it 'returns the minutes checked in' do
+        expect(employee.minutes_checked_in_on_date(Date.today)).to eq(2)
+      end
+    end
+
+    context 'when not checked in' do
+      let(:employee) { FactoryGirl.create(:employee) }
+
+      it 'returns 0' do
+        expect(employee.minutes_checked_in_on_date(Date.today)).to eq(0)
+      end
+    end
+  end
 end
