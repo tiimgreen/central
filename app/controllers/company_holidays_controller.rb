@@ -13,6 +13,14 @@ class CompanyHolidaysController < ApplicationController
 
     date_range, holidays, errors = params[:company_holiday][:date], [], false
 
+    parsed_date_range = parse_date_range(date_range)
+
+    if parsed_date_range[0] <= Date.today
+      flash[:warning] = 'That date is in the past'
+      render :index
+      return
+    end
+
     parse_date_range(date_range).each do |date|
       company_holiday = CompanyHoliday.new(date: date)
 
