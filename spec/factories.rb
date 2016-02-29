@@ -21,4 +21,9 @@ FactoryGirl.define do
     emergency_contact_relation { "Mother" }
     emergency_contact_phone_number { Faker::PhoneNumber.phone_number }
   end
+
+  factory :check_in do
+    employee { FactoryGirl.create(:employee) }
+    check_in_time { 2.hours.ago }
+  end
 end

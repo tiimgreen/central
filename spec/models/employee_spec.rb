@@ -26,7 +26,7 @@ describe Employee do
   it { should_not allow_value(Faker::Internet.user_name).for(:email) }
 
   it { should_not be_is_line_manager }
-  it { should be_active}
+  it { should be_active }
 
   describe '#full_name' do
     it 'returns full name' do
