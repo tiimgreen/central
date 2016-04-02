@@ -118,7 +118,7 @@ class Employee < ActiveRecord::Base
   # @param (Date) - start of week
   # @returns (String) - formatted time checked in for week
   def formatted_time_checked_in_on_week(date)
-    week = (date..(date + 4)).to_a
+    week = (date..(date + 6)).to_a
     total_minutes = 0
 
     week.each { |day| total_minutes += minutes_checked_in_on_date(day) }

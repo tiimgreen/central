@@ -16,7 +16,7 @@ class CheckInsController < ApplicationController
     if current_employee.check_out
       flash[:success] = 'Checked out!'
     else
-      flash[:warning] = 'There was an error checking you in.'
+      flash[:warning] = 'There was an error checking you out.'
     end
 
     redirect_to root_path

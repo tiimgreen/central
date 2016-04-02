@@ -23,7 +23,12 @@ FactoryGirl.define do
   end
 
   factory :check_in do
+<<<<<<< HEAD
+    employee { FactoryGirl.create(:employee) }
+    check_in_time { 2.hours.ago }
+=======
     employee      { FactoryGirl.create(:employee) }
     check_in_time { Time.now }
+>>>>>>> 354cba609ad16c862acdd3e79a5c94cc64f2031d
   end
 end
